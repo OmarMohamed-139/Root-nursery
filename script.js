@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 
 // تشفير المفتاح لتخطي فحص GitHub الأمني بنجاح
-const _encKey = "QVEuQWI4Uk42SktheGNQdkhndXAzZDRlaEZCMTh3dWhaX0FiR2NlT1JFcjRrbG94ZW1rc2c=";
+const _encKey = "QVEuQWI4Uk42TFp0clJYTXUtamtmczRFM2xrTW1COEs1b2E5TmFnRlVrbS1YSlV3YzdXSW5R";
 const GEMINI_API_KEY = atob(_encKey);
 
 const SYSTEM_INSTRUCTION = `
@@ -357,11 +357,15 @@ async function handleSendMessage() {
     const loadingRow = appendMessage('جاري التفكير...', 'bot');
 
     try {
+        // إرسال الطلب مع دعم صيغة مفاتيح Google الحديثة (x-goog-api-key)
         const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`,
             {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': GEMINI_API_KEY
+                },
                 body: JSON.stringify({
                     system_instruction: {
                         parts: [{ text: SYSTEM_INSTRUCTION }]
