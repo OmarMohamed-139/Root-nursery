@@ -164,3 +164,93 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+const GEMINI_API_KEY = "ضع_هنا_API_KEY_الخاص_بك";
+
+// تعليمات وسياق حضانة Roots
+const SYSTEM_INSTRUCTION = `
+أنت المساعد الذكي الرسمي لـ "حضانة Roots" (Roots Nursery).
+مهمتك: الرد على استفسارات أولياء الأمور بلباقة واحترافية وبلهجة ودودة باللغة العربية.
+
+معلومات الحضانة:
+- الرؤية: دمج أساليب التربية الحديثة مع تقنيات التعلم القائمة على الذكاء الاصطناعي (AI) لتنمية مهارات الأطفال العقلية والإبداعية.
+- ساعات العمل: الأحد إلى الخميس من 7:30 صباحاً حتى 4:00 عصراً (الجمعة والسبت عطلة).
+- البرامج العمرية:
+  1. الحضانات الصغرى (Toddlers) من سنة لسنتين.
+  2. ما قبل التمهيدي (Pre-School) من سنتين لـ 3 سنوات.
+  3. الروضة وتأهيل المدرسة (Kindergarten) من 3 لـ 5 سنوات ومخصصة لتأهيل المقابلات المدرسية واللغات والبرمجة.
+- التواصل: هاتف/واتساب +20 100 000 0000، إيميل info@rootsnursery.com، العنوان: شارع الرئيسية بجوار النادي.
+
+قواعد: لا تخترع أسعاراً محددة للمصروفات، اطلب منهم بلطف التواصل عبر الواتساب للأمور المالية أو حجز زيارة.
+`;
+
+// سجل المحادثة للحفاظ على سياق النقاش
+let conversationHistory = [];
+
+const chatToggle = document.getElementById("ai-chat-toggle");
+const chatBox = document.getElementById("ai-chat-box");
+const chatClose = document.getElementById("ai-chat-close");
+const sendBtn = document.getElementById("ai-send-btn");
+const userInput = document.getElementById("ai-user-input");
+const messagesContainer = document.getElementById("ai-chat-messages");
+
+// فتح وإغلاق الصندوق
+chatToggle.addEventListener("click", () => chatBox.classList.toggle("chat-hidden"));
+chatClose.addEventListener("click", () => chatBox.classList.add("chat-hidden"));
+
+// إرسال الرسالة
+async function sendMessage() {
+  const text = userInput.value.trim();
+  if (!text) return;
+
+  // إظهار رسالة المستخدم
+  appendMessage(text, "user-message");
+  userInput.value = "";
+  conversationHistory.push({ role: "user", parts: [{ text: text }] });
+
+  // مؤشر جاري الكتابة
+  const loadingDiv = appendMessage("جاري الرد...", "bot-message");
+
+  try {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: {
+          parts: [{ text: SYSTEM_INSTRUCTION }]
+        },
+        contents: conversationHistory,
+        generationConfig: {
+          temperature: 0.3
+        }
+      })
+    });
+
+    const data = await response.json();
+    loadingDiv.remove();
+
+    if (data.candidates && data.candidates[0].content.parts[0].text) {
+      const reply = data.candidates[0].content.parts[0].text;
+      appendMessage(reply, "bot-message");
+      conversationHistory.push({ role: "model", parts: [{ text: reply }] });
+    } else {
+      appendMessage("عذراً، حدث خطأ أثناء معالجة الرد، يرجى المحاولة لاحقاً.", "bot-message");
+    }
+  } catch (error) {
+    loadingDiv.remove();
+    appendMessage("تعذر الاتصال بالخادم، يرجى التحقق من اتصالك بالإنترنت.", "bot-message");
+  }
+}
+
+function appendMessage(text, className) {
+  const msg = document.createElement("div");
+  msg.className = `message ${className}`;
+  msg.textContent = text;
+  messagesContainer.appendChild(msg);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  return msg;
+}
+
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});

@@ -975,3 +975,130 @@ body {
     font-size: 0.5rem;
     color: var(--primary);
 }
+/* تنسيقات زر وشباك الشات */
+#ai-chat-widget {
+  position: fixed;
+  bottom: 90px; /* تم رفعه ليكون فوق زر الواتساب */
+  left: 20px;   /* جهة اليسار أو اليمين حسب رغبتك */
+  z-index: 9999;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+}
+
+#ai-chat-toggle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #2b7a78; /* لون متناسق مع الحضانة */
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+#ai-chat-toggle:hover {
+  transform: scale(1.08);
+}
+
+#ai-chat-box {
+  width: 340px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.chat-hidden {
+  display: none !important;
+}
+
+.chat-header {
+  background: #2b7a78;
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-info span {
+  display: block;
+  font-size: 11px;
+  color: #c7ede6;
+}
+
+#ai-chat-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f8fafc;
+}
+
+.message {
+  max-width: 80%;
+  padding: 9px 13px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.bot-message {
+  background: #e2f1f0;
+  color: #17252a;
+  align-self: flex-start;
+  border-bottom-right-radius: 2px;
+}
+
+.user-message {
+  background: #2b7a78;
+  color: white;
+  align-self: flex-end;
+  border-bottom-left-radius: 2px;
+}
+
+.chat-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+#ai-user-input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  font-size: 13px;
+}
+
+#ai-send-btn {
+  background: #2b7a78;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-right: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
