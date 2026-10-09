@@ -170,31 +170,50 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// محرك الذكاء الاصطناعي الصوتي (Voice AI Agent)
+// محرك الذكاء الصوتي المدمج (Offline Native AI)
 // ==========================================
 
-// الرابط المباشر للوسيط الخاص بك على Cloudflare
-const WORKER_ENDPOINT = "https://noisy-sun-9f6c.omarandnancy306.workers.dev";
+function getLocalBotReply(userText) {
+    const text = userText.toLowerCase().trim();
 
-const SYSTEM_INSTRUCTION = `
-أنت المساعد الصوتي الرسمي لـ "حضانة Roots" (Roots Nursery).
-مهمتك: الرد صوتياً وودياً على استفسارات أولياء الأمور بنبرة مرحبة وواضحة جداً باللغة العربية الفصحى البسيطة.
+    // التحية
+    if (text.includes("ازيك") || text.includes("عامل ايه") || text.includes("مرحبا") || text.includes("اهلا") || text.includes("سلام")) {
+        return "أهلاً بك! أنا بخير وسعيد بالتحدث معك. أنا المساعد الذكي لحضانة Roots، كيف أستطيع مساعدتك اليوم؟";
+    }
 
-معلومات الحضانة:
-- الرؤية: دمج التربية الحديثة مع تقنيات الذكاء الاصطناعي (AI) لتنمية مهارات الأطفال.
-- مواعيد العمل: الأحد إلى الخميس من 7:30 صباحاً حتى 4:00 عصراً (الجمعة والسبت عطلة).
-- البرامج:
-  1. الحضانات الصغرى (Toddlers) من 1 - 2 سنة (رعاية فردية وتعديل سلوك وألعاب حسية).
-  2. ما قبل التمهيدي (Pre-School) من 2 - 3 سنوات (تأسيس لغات، تخاطب، وفنون تفاعلية).
-  3. الروضة وتأهيل المدرسة (Kindergarten) من 3 - 5 سنوات (تأهيل مقابلات المدارس، وتفكير منطقي وبرمجة).
-- التواصل: هاتف/واتساب +20 100 000 0000، إيميل info@rootsnursery.com، العنوان: شارع الرئيسية بجوار النادي.
+    // المميزات
+    if (text.includes("مميز") || text.includes("ليه اختار") || text.includes("ميزه") || text.includes("عن الحضانة") || text.includes("مين انتو")) {
+        return "تتميز حضانة Roots بدمج التربية الحديثة مع تقنيات الذكاء الاصطناعي، ورعاية فردية لكل طفل، مع بيئة آمنة وكاميرات مراقبة وأنشطة تفاعلية لتنمية التفكير المبكر.";
+    }
 
-قواعد هامة للصوت:
-- اجعل إجابتك مباشرة وموجزة (في جملتين أو ثلاث فقط) لتكون مريحة وممتعة عند الاستماع إليها صوتياً.
-- لا تذكر أسعاراً رقمية للمصروفات، واطلب منهم بلطف التواصل عبر الواتساب للأمور المالية.
-`;
+    // البرامج والمراحل العمرية
+    if (text.includes("برامج") || text.includes("برنامج") || text.includes("سن") || text.includes("اعمار") || text.includes("عمر") || text.includes("مراحل")) {
+        return "نقدم ثلاثة برامج تعليمية: برنامج الحضانات الصغرى من سنة إلى سنتين، برنامج ما قبل التمهيدي من سنتين إلى ثلاث سنوات، وبرنامج الروضة والتأهيل المدرسي من ثلاث إلى خمس سنوات.";
+    }
 
-let conversationHistory = [];
+    // مواعيد العمل
+    if (text.includes("مواعيد") || text.includes("ساعات") || text.includes("وقت") || text.includes("تفتح") || text.includes("تقفل") || text.includes("ايام")) {
+        return "مواعيد العمل لدينا من الأحد إلى الخميس، من الساعة السابعة والنصف صباحاً حتى الرابعة عصراً، ويومي الجمعة والسبت عطلة رسمية.";
+    }
+
+    // الأسعار والمصروفات
+    if (text.includes("سعر") || text.includes("اسعار") || text.includes("مصاريف") || text.includes("فلوس") || text.includes("تكلف") || text.includes("بكام")) {
+        return "تختلف المصروفات بحسب البرنامج والمستوى، يمكنك التواصل مع إدارة الحضانة عبر الواتساب على رقم 01000000000 لمعرفة كافة التفاصيل وعروض التسجيل.";
+    }
+
+    // العنوان والموقع
+    if (text.includes("عنوان") || text.includes("مكان") || text.includes("فين") || text.includes("موقعك")) {
+        return "مقر حضانة Roots يقع في الشارع الرئيسي بجوار النادي، ويسعدنا جداً استقبالكم لزيارة الحضانة والتعرف عليها عن قرب.";
+    }
+
+    // التقديم والتسجيل
+    if (text.includes("تقديم") || text.includes("تسجيل") || text.includes("اشترك") || text.includes("احجز")) {
+        return "يمكنك التقديم عبر ملء نموذج الاستفسارات في أسفل الصفحة، أو زيارتنا مباشرة في مقر الحضانة، أو التواصل معنا عبر الهاتف لحجز المقابلة.";
+    }
+
+    // رد عام ذكي
+    return "أهلاً بك في حضانة Roots! نحن نقدم برامج تعليمية حديثة للأطفال من عمر سنة حتى خمس سنوات بالدمج مع أدوات الذكاء الاصطناعي. يمكنك سؤالي عن البرامج، المواعيد، أو كيفية التقديم!";
+}
 
 // التحكم بحالة الأفاتار البصري
 function setOrbState(state, captionText) {
@@ -215,7 +234,7 @@ function setOrbState(state, captionText) {
     }
 }
 
-// دالة نطق رد البوت الصوتي باللغة العربية مع تفاعل الأفاتار
+// نطق الرد الصوتي باللغة العربية مع الأفاتار
 function speakVoiceResponse(text) {
     if (!('speechSynthesis' in window)) return;
 
@@ -329,7 +348,6 @@ function appendMessage(text, type) {
 
     const row = document.createElement('div');
     row.className = `message-row ${type}-row`;
-
     row.innerHTML = `<div class="${type}-message message">${text}</div>`;
 
     messagesContainer.appendChild(row);
@@ -337,7 +355,7 @@ function appendMessage(text, type) {
     return row;
 }
 
-async function handleSendMessage() {
+function handleSendMessage() {
     const userInput = document.getElementById('user-input');
     if (!userInput) return;
 
@@ -347,50 +365,13 @@ async function handleSendMessage() {
     appendMessage(text, 'user');
     userInput.value = '';
 
-    conversationHistory.push({
-        role: 'user',
-        parts: [{ text: text }]
-    });
-
     setOrbState('speaking', 'جاري التفكير وتوليد الرد الصوتي...');
     const loadingRow = appendMessage('جاري التفكير...', 'bot');
 
-    try {
-        // إرسال الطلب مباشرة إلى الخادم الوسيط على Cloudflare
-        const response = await fetch(WORKER_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                system_instruction: {
-                    parts: [{ text: SYSTEM_INSTRUCTION }]
-                },
-                contents: conversationHistory,
-                generationConfig: {
-                    temperature: 0.2
-                }
-            })
-        });
-
-        const data = await response.json();
+    setTimeout(() => {
         if (loadingRow) loadingRow.remove();
-
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (reply) {
-            appendMessage(reply, 'bot');
-            speakVoiceResponse(reply);
-            conversationHistory.push({
-                role: 'model',
-                parts: [{ text: reply }]
-            });
-        } else {
-            setOrbState('idle', 'عذراً، يرجى إعادة المحاولة.');
-            appendMessage('عذراً، تعذر تلقي الإجابة في الوقت الحالي.', 'bot');
-        }
-    } catch (error) {
-        if (loadingRow) loadingRow.remove();
-        setOrbState('idle', 'حدث خطأ في الاتصال بالإنترنت');
-        appendMessage('تعذر الاتصال بالمساعد، يرجى التأكد من اتصال الإنترنت.', 'bot');
-    }
+        const reply = getLocalBotReply(text);
+        appendMessage(reply, 'bot');
+        speakVoiceResponse(reply);
+    }, 600);
 }
