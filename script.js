@@ -173,9 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // محرك الذكاء الاصطناعي الصوتي (Voice AI Agent)
 // ==========================================
 
-// المفتاح مشفر لتجاوز فحص GitHub الأمني
-const _encKey = "QVEuQWI4Uk42TFp0clJYTXUtamtmczRFM2xrTW1COEs1b2E5TmFnRlVrbS1YSlV3YzdXSW5R";
-const GEMINI_API_KEY = atob(_encKey);
+// الرابط المباشر للوسيط الخاص بك على Cloudflare
+const WORKER_ENDPOINT = "https://noisy-sun-9f6c.omarandnancy306.workers.dev";
 
 const SYSTEM_INSTRUCTION = `
 أنت المساعد الصوتي الرسمي لـ "حضانة Roots" (Roots Nursery).
@@ -357,27 +356,22 @@ async function handleSendMessage() {
     const loadingRow = appendMessage('جاري التفكير...', 'bot');
 
     try {
-        // إرسال الطلب عبر بروكسي ويب مجاني لتخطي حظر الـ CORS
-        const targetUrl = encodeURIComponent("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
-        const response = await fetch(
-            `https://api.allorigins.win/raw?url=${targetUrl}`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-goog-api-key': GEMINI_API_KEY
+        // إرسال الطلب مباشرة إلى الخادم الوسيط على Cloudflare
+        const response = await fetch(WORKER_ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                system_instruction: {
+                    parts: [{ text: SYSTEM_INSTRUCTION }]
                 },
-                body: JSON.stringify({
-                    system_instruction: {
-                        parts: [{ text: SYSTEM_INSTRUCTION }]
-                    },
-                    contents: conversationHistory,
-                    generationConfig: {
-                        temperature: 0.2
-                    }
-                })
-            }
-        );
+                contents: conversationHistory,
+                generationConfig: {
+                    temperature: 0.2
+                }
+            })
+        });
 
         const data = await response.json();
         if (loadingRow) loadingRow.remove();
