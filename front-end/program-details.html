@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">تفاصيل البرنامج - حضانة Roots</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="Tap img.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo-wrapper">
+                    <img src="roots logo.png" alt="Roots Logo" class="logo-img">
+                </div>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html#hero" class="nav-link">الرئيسية</a>
+                <a href="index.html#about" class="nav-link">من نحن</a>
+                <a href="index.html#programs" class="nav-link active">البرامج</a>
+                <a href="index.html#activities" class="nav-link">الأنشطة</a>
+                <a href="index.html#contact" class="nav-link">اتصل بنا</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="index.html#contact" class="btn-primary contact-btn">تواصل معنا</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم تفاصيل البرنامج -->
+    <section class="program-details-section section-padding">
+        <div class="container">
+            <div class="back-nav">
+                <a href="index.html#programs" class="back-btn"><i class="fa-solid fa-arrow-right"></i> العودة للبرامج
+                    والفلترة</a>
+            </div>
+
+            <div class="program-detail-container" id="programDetailContent">
+                <div class="program-hero-info">
+                    <span class="age-tag-detail" id="progAge">الفئة العمرية</span>
+                    <h1 id="progTitle">عنوان البرنامج التعليمي</h1>
+                    <p id="progDesc">وصف تفصيلي للبرنامج التعليمي وأهدافه الاستراتيجية وتنمية مهارات الأطفال.</p>
+                </div>
+
+                <div class="program-body-grid">
+                    <div class="program-main-text">
+                        <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف البرنامج التعليمية</h3>
+                        <p id="progGoals">هنا يمكنك كتابة تفاصيل إضافية عن ما يتعلمه الطفل في هذا البرنامج، المناهج
+                            التفاعلية، والأنشطة اليومية المدعومة بالذكاء الاصطناعي.</p>
+
+                        <h3 class="mt-30"><i class="fa-solid fa-list-check text-green"></i> محتوى الكورسات والوحدات
+                            التعليمية</h3>
+                        <p class="section-subtext">قائمة محتوى الكورس المجدولة لهذا البرنامج والتي يمكنك تعديلها أو
+                            إضافتها مستقبلاً:</p>
+
+                        <!-- قوائم محتوى الكورسات التي سيتم تعبئتها ديناميكياً -->
+                        <div class="course-modules-list" id="progCoursesList">
+                            <!-- سيتم حقن المحتوى هنا -->
+                        </div>
+                    </div>
+
+                    <div class="program-sidebar-box">
+                        <h3>هل أنت مستعد لتسجيل طفلك؟</h3>
+                        <p>تواصل معنا الآن لمعرفة التفاصيل الكاملة والمقاعد المتاحة لهذا البرنامج.</p>
+                        <a href="index.html#contact" class="btn-primary btn-block">احجز استفسارك الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <div class="logo-wrapper footer-logo">
+                    <img src="roots logo.png" alt="Roots Logo" class="logo-img">
+                </div>
+                <p>حضانة Roots هي خيارك الأول لتأسيس طفلك باستخدام أحدث تقنيات التعلم الذكي والذكاء الاصطناعي.</p>
+            </div>
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html#hero">الرئيسية</a></li>
+                    <li><a href="index.html#about">من نحن</a></li>
+                    <li><a href="index.html#programs">البرامج</a></li>
+                    <li><a href="index.html#activities">الأنشطة</a></li>
+                    <li><a href="index.html#contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>برامجنا</h3>
+                <ul>
+                    <li><a href="program-details.html?program=toddlers">الحضانات الصغرى (Toddlers)</a></li>
+                    <li><a href="program-details.html?program=preschool">ما قبل التمهيدي (Pre-School)</a></li>
+                    <li><a href="program-details.html?program=kindergarten">الروضة وتأهيل المدرسة (Kindergarten)</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تابعنا</h3>
+                <p>كن على اطلاع دائم بفعالياتنا وأنشطة الأطفال.</p>
+                <div class="social-links footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2026 حضانة Roots. تصميم وتطوير متكامل.</p>
+        </div>
+    </footer>
+
+    <!-- زر واتساب عائم -->
+    <a href="https://wa.me/201000000000" class="whatsapp-float" target="_blank" aria-label="تواصل واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
