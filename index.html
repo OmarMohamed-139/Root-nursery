@@ -135,7 +135,6 @@
                 <p>برامج ذكية ومبتكرة مصممة بعناية لتناسب كل مرحلة نمو يمر بها طفلك. اضغط على أي برنامج لتفاصيله.</p>
             </div>
             <div class="programs-grid">
-                <!-- البرنامج الأول -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80"
@@ -155,7 +154,6 @@
                     </div>
                 </div>
 
-                <!-- البرنامج الثاني -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80"
@@ -175,7 +173,6 @@
                     </div>
                 </div>
 
-                <!-- البرنامج الثالث -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80"
@@ -364,36 +361,67 @@
         <span>تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</span>
     </div>
 
-    <script src="script.js"></script>
-    <!-- نافذة وزر المساعد الذكي لحضانة Roots -->
-    <div id="ai-chat-widget">
-        <!-- الزر العائم لفتح الشات -->
-        <button id="ai-chat-toggle" aria-label="مساعد Roots الذكي">
-            💬
+    <!-- نافذة المساعد الصوتي التفاعلي الشبيه بـ Yamamah Voice Agent -->
+    <div id="chat-widget-container">
+        <!-- زر فتح المحادثة الصوتي العائم -->
+        <button id="chat-toggle-btn" type="button">
+            <div class="voice-pulse-circle">
+                <span class="pulse-ring"></span>
+                <i class="fa-solid fa-waveform-lines fa-microphone"></i>
+            </div>
+            <span>المساعد الصوتي الذكي</span>
         </button>
 
-        <!-- صندوق المحادثة -->
-        <div id="ai-chat-box" class="chat-hidden">
+        <!-- نافذة المساعد الصوتي الحديثة -->
+        <div id="chat-box" class="chat-hidden">
+            <!-- شريط علوي أنيق -->
             <div class="chat-header">
                 <div class="header-info">
-                    <strong>مساعد Roots الذكي</strong>
-                    <span>متصل الآن</span>
+                    <span class="live-indicator"></span>
+                    <div>
+                        <h4>Roots AI Voice</h4>
+                        <span id="agent-status-text" class="bot-status">جاهز للاستماع والتحدث</span>
+                    </div>
                 </div>
-                <button id="ai-chat-close">✕</button>
+                <button type="button" id="chat-close-btn" aria-label="إغلاق">✕</button>
             </div>
 
-            <div id="ai-chat-messages" class="chat-body">
-                <div class="message bot-message">
-                    أهلاً بك في حضانة Roots! 🌟 أنا مساعدك الذكي، كيف يمكنني مساعدتك بخصوص برامجنا وتفاصيل التقديم؟
+            <!-- مساحة الأفاتار الصوتي الحي (Voice Orb / Waveform) -->
+            <div class="voice-avatar-stage">
+                <div class="orb-container" id="voice-orb">
+                    <div class="orb-glow"></div>
+                    <div class="orb-core">
+                        <i class="fa-solid fa-sparkles"></i>
+                    </div>
+                    <div class="wave wave-1"></div>
+                    <div class="wave wave-2"></div>
+                    <div class="wave wave-3"></div>
+                </div>
+                <p id="voice-caption" class="voice-caption">اضغط على المايك وابدأ الحديث مع حضانة Roots</p>
+            </div>
+
+            <!-- منطقة عرض نصوص المحادثة الصوتية -->
+            <div id="chat-messages" class="chat-messages">
+                <div class="message-row bot-row">
+                    <div class="bot-message message">أهلاً بك! أنا مساعد حضانة Roots الذكي. اضغط على المايك وتحدث معي
+                        مباشرة وسأجيبك صوتياً وكتابياً! 🎙️</div>
                 </div>
             </div>
 
-            <div class="chat-footer">
-                <input type="text" id="ai-user-input" placeholder="اكتب استفسارك هنا..." />
-                <button id="ai-send-btn">إرسال</button>
+            <!-- أزرار التحكم الصوتي والكتابي -->
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="اكتب سؤالك أو تحدث بالمايك..." autocomplete="off" />
+                <button type="button" id="mic-btn" class="main-mic-action" title="تحدث بالمايك">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button type="button" id="send-btn" title="إرسال نصي">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

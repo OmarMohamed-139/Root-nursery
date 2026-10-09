@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // القائمة المتنقلة للموبايل
+    // 1. القائمة المتنقلة للموبايل
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
 
@@ -16,18 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // إغلاق القائمة عند النقر على أي رابط
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 const icon = mobileToggle.querySelector('i');
-                icon.classList.remove('fa-xmark');
-                icon.classList.add('fa-bars');
+                if (icon) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
             });
         });
     }
 
-    // معالجة نموذج الاستفسارات وإظهار رسالة النجاح
+    // 2. نموذج الاستفسارات العادي
     const inquiryForm = document.getElementById('inquiryForm');
     const successToast = document.getElementById('successToast');
 
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // تحميل تفاصيل البرنامج ومحتوى الكورسات ديناميكياً في صفحة program-details.html
+    // 3. تفاصيل البرامج
     const urlParams = new URLSearchParams(window.location.search);
     const programId = urlParams.get('program');
 
@@ -54,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const progGoals = document.getElementById('progGoals');
         const progCoursesList = document.getElementById('progCoursesList');
 
-        // مصفوفة تحتوي على بيانات وبرامج وكورسات كل مسار (يمكنك تعديلها وإضافة محتويات مستقبلية بسهولة هنا)
         const programsData = {
             'toddlers': {
                 title: 'برنامج الحضانات الصغرى (Toddlers)',
@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progDesc) progDesc.textContent = data.desc;
             if (progGoals) progGoals.textContent = data.goals;
 
-            // حقن قوائم محتوى الكورسات ديناميكياً
             if (progCoursesList && data.modules) {
                 progCoursesList.innerHTML = data.modules.map(mod => `
                     <div class="course-module-card">
@@ -152,105 +151,247 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // تأثير تغيير لون شريط التنقل عند التمرير
+    // 4. شريط التنقل
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            navbar.style.height = '80px';
-        } else {
-            navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.05)';
-            navbar.style.height = '90px';
-        }
-    });
-});
-const GEMINI_API_KEY = "ضع_هنا_API_KEY_الخاص_بك";
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                navbar.style.height = '80px';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.05)';
+                navbar.style.height = '90px';
+            }
+        });
+    }
 
-// تعليمات وسياق حضانة Roots
+    // 5. تشغيل المساعد الصوتي
+    initVoiceChatbot();
+});
+
+// ==========================================
+// محرك الذكاء الاصطناعي الصوتي (Voice AI Agent)
+// ==========================================
+const GEMINI_API_KEY = "AQ.Ab8RN6JKaxcPvHgup3d4ehFB18wuhZ_AbGceOREr4kloxemksg";
+
 const SYSTEM_INSTRUCTION = `
-أنت المساعد الذكي الرسمي لـ "حضانة Roots" (Roots Nursery).
-مهمتك: الرد على استفسارات أولياء الأمور بلباقة واحترافية وبلهجة ودودة باللغة العربية.
+أنت المساعد الصوتي الرسمي لـ "حضانة Roots" (Roots Nursery).
+مهمتك: الرد صوتياً وودياً على استفسارات أولياء الأمور بنبرة مرحبة وواضحة جداً باللغة العربية الفصحى البسيطة.
 
 معلومات الحضانة:
-- الرؤية: دمج أساليب التربية الحديثة مع تقنيات التعلم القائمة على الذكاء الاصطناعي (AI) لتنمية مهارات الأطفال العقلية والإبداعية.
-- ساعات العمل: الأحد إلى الخميس من 7:30 صباحاً حتى 4:00 عصراً (الجمعة والسبت عطلة).
-- البرامج العمرية:
-  1. الحضانات الصغرى (Toddlers) من سنة لسنتين.
-  2. ما قبل التمهيدي (Pre-School) من سنتين لـ 3 سنوات.
-  3. الروضة وتأهيل المدرسة (Kindergarten) من 3 لـ 5 سنوات ومخصصة لتأهيل المقابلات المدرسية واللغات والبرمجة.
+- الرؤية: دمج التربية الحديثة مع تقنيات الذكاء الاصطناعي (AI) لتنمية مهارات الأطفال.
+- مواعيد العمل: الأحد إلى الخميس من 7:30 صباحاً حتى 4:00 عصراً (الجمعة والسبت عطلة).
+- البرامج:
+  1. الحضانات الصغرى (Toddlers) من 1 - 2 سنة (رعاية فردية وتعديل سلوك وألعاب حسية).
+  2. ما قبل التمهيدي (Pre-School) من 2 - 3 سنوات (تأسيس لغات، تخاطب، وفنون تفاعلية).
+  3. الروضة وتأهيل المدرسة (Kindergarten) من 3 - 5 سنوات (تأهيل مقابلات المدارس، وتفكير منطقي وبرمجة).
 - التواصل: هاتف/واتساب +20 100 000 0000، إيميل info@rootsnursery.com، العنوان: شارع الرئيسية بجوار النادي.
 
-قواعد: لا تخترع أسعاراً محددة للمصروفات، اطلب منهم بلطف التواصل عبر الواتساب للأمور المالية أو حجز زيارة.
+قواعد هامة للصوت:
+- اجعل إجابتك مباشرة وموجزة (في جملتين أو ثلاث فقط) لتكون مريحة وممتعة عند الاستماع إليها صوتياً.
+- لا تذكر أسعاراً رقمية للمصروفات، واطلب منهم بلطف التواصل عبر الواتساب للأمور المالية.
 `;
 
-// سجل المحادثة للحفاظ على سياق النقاش
 let conversationHistory = [];
 
-const chatToggle = document.getElementById("ai-chat-toggle");
-const chatBox = document.getElementById("ai-chat-box");
-const chatClose = document.getElementById("ai-chat-close");
-const sendBtn = document.getElementById("ai-send-btn");
-const userInput = document.getElementById("ai-user-input");
-const messagesContainer = document.getElementById("ai-chat-messages");
+// التحكم بحالة الأفاتار البصري (Yamamah Orb States)
+function setOrbState(state, captionText) {
+    const orb = document.getElementById('voice-orb');
+    const caption = document.getElementById('voice-caption');
+    const statusText = document.getElementById('agent-status-text');
 
-// فتح وإغلاق الصندوق
-chatToggle.addEventListener("click", () => chatBox.classList.toggle("chat-hidden"));
-chatClose.addEventListener("click", () => chatBox.classList.add("chat-hidden"));
+    if (orb) {
+        orb.classList.remove('listening', 'speaking');
+        if (state !== 'idle') orb.classList.add(state);
+    }
+    if (caption && captionText) caption.innerText = captionText;
 
-// إرسال الرسالة
-async function sendMessage() {
-  const text = userInput.value.trim();
-  if (!text) return;
+    if (statusText) {
+        if (state === 'listening') statusText.innerText = "جاري الاستماع لصوتك...";
+        else if (state === 'speaking') statusText.innerText = "المساعد يتحدث الآن...";
+        else statusText.innerText = "جاهز للاستماع والتحدث";
+    }
+}
 
-  // إظهار رسالة المستخدم
-  appendMessage(text, "user-message");
-  userInput.value = "";
-  conversationHistory.push({ role: "user", parts: [{ text: text }] });
+// دالة نطق رد البوت الصوتي باللغة العربية مع تفاعل الأفاتار
+function speakVoiceResponse(text) {
+    if (!('speechSynthesis' in window)) return;
 
-  // مؤشر جاري الكتابة
-  const loadingDiv = appendMessage("جاري الرد...", "bot-message");
+    window.speechSynthesis.cancel();
 
-  try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: {
-          parts: [{ text: SYSTEM_INSTRUCTION }]
-        },
-        contents: conversationHistory,
-        generationConfig: {
-          temperature: 0.3
+    // إزالة علامات التنسيق من النص ليكون النطق ناصعاً
+    const cleanText = text.replace(/[*#_~]/g, '');
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'ar-SA';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.05;
+
+    utterance.onstart = () => {
+        setOrbState('speaking', 'المساعد يجيبك صوتياً الآن...');
+    };
+
+    utterance.onend = () => {
+        setOrbState('idle', 'اضغط على المايك لبدء محادثة جديدة');
+    };
+
+    utterance.onerror = () => {
+        setOrbState('idle', 'اضغط على المايك لبدء محادثة جديدة');
+    };
+
+    window.speechSynthesis.speak(utterance);
+}
+
+function initVoiceChatbot() {
+    const chatToggleBtn = document.getElementById('chat-toggle-btn');
+    const chatCloseBtn = document.getElementById('chat-close-btn');
+    const sendBtn = document.getElementById('send-btn');
+    const userInput = document.getElementById('user-input');
+    const micBtn = document.getElementById('mic-btn');
+
+    if (chatToggleBtn) chatToggleBtn.addEventListener('click', toggleChat);
+    if (chatCloseBtn) chatCloseBtn.addEventListener('click', toggleChat);
+    if (sendBtn) sendBtn.addEventListener('click', handleSendMessage);
+
+    if (userInput) {
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSendMessage();
+            }
+        });
+    }
+
+    // إعداد المايك والتعرف على الصوت
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition && micBtn) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'ar-SA';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        micBtn.addEventListener('click', () => {
+            // إيقاف الصوت الحالي إن وُجد
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+            if (micBtn.classList.contains('listening')) {
+                recognition.stop();
+            } else {
+                try {
+                    recognition.start();
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+        });
+
+        recognition.onstart = () => {
+            micBtn.classList.add('listening');
+            setOrbState('listening', 'تفضل، أنا أستمع إليك الآن...');
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            if (userInput) {
+                userInput.value = transcript;
+                handleSendMessage();
+            }
+        };
+
+        recognition.onerror = () => {
+            micBtn.classList.remove('listening');
+            setOrbState('idle', 'حدث خطأ في التقاط الصوت، حاول مجدداً');
+        };
+
+        recognition.onend = () => {
+            micBtn.classList.remove('listening');
+        };
+    } else if (micBtn) {
+        micBtn.style.display = 'none';
+    }
+}
+
+function toggleChat() {
+    const chatBox = document.getElementById('chat-box');
+    if (chatBox) {
+        chatBox.classList.toggle('chat-hidden');
+        if (!chatBox.classList.contains('chat-hidden')) {
+            const userInput = document.getElementById('user-input');
+            if (userInput) userInput.focus();
+        } else {
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            setOrbState('idle', 'اضغط على المايك وابدأ الحديث مع حضانة Roots');
         }
-      })
+    }
+}
+
+function appendMessage(text, type) {
+    const messagesContainer = document.getElementById('chat-messages');
+    if (!messagesContainer) return null;
+
+    const row = document.createElement('div');
+    row.className = `message-row ${type}-row`;
+
+    row.innerHTML = `<div class="${type}-message message">${text}</div>`;
+
+    messagesContainer.appendChild(row);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    return row;
+}
+
+async function handleSendMessage() {
+    const userInput = document.getElementById('user-input');
+    if (!userInput) return;
+
+    const text = userInput.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    userInput.value = '';
+
+    conversationHistory.push({
+        role: 'user',
+        parts: [{ text: text }]
     });
 
-    const data = await response.json();
-    loadingDiv.remove();
+    setOrbState('speaking', 'جاري التفكير وتوليد الرد الصوتي...');
+    const loadingRow = appendMessage('جاري التفكير...', 'bot');
 
-    if (data.candidates && data.candidates[0].content.parts[0].text) {
-      const reply = data.candidates[0].content.parts[0].text;
-      appendMessage(reply, "bot-message");
-      conversationHistory.push({ role: "model", parts: [{ text: reply }] });
-    } else {
-      appendMessage("عذراً، حدث خطأ أثناء معالجة الرد، يرجى المحاولة لاحقاً.", "bot-message");
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    system_instruction: {
+                        parts: [{ text: SYSTEM_INSTRUCTION }]
+                    },
+                    contents: conversationHistory,
+                    generationConfig: {
+                        temperature: 0.2
+                    }
+                })
+            }
+        );
+
+        const data = await response.json();
+        if (loadingRow) loadingRow.remove();
+
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (reply) {
+            appendMessage(reply, 'bot');
+            speakVoiceResponse(reply); // تشغيل النطق الصوتي الحي للأفاتار
+            conversationHistory.push({
+                role: 'model',
+                parts: [{ text: reply }]
+            });
+        } else {
+            setOrbState('idle', 'عذراً، يرجى إعادة المحاولة.');
+            appendMessage('عذراً، تعذر تلقي الإجابة في الوقت الحالي.', 'bot');
+        }
+    } catch (error) {
+        if (loadingRow) loadingRow.remove();
+        setOrbState('idle', 'حدث خطأ في الاتصال بالإنترنت');
+        appendMessage('تعذر الاتصال بالمساعد، يرجى التأكد من اتصال الإنترنت.', 'bot');
     }
-  } catch (error) {
-    loadingDiv.remove();
-    appendMessage("تعذر الاتصال بالخادم، يرجى التحقق من اتصالك بالإنترنت.", "bot-message");
-  }
 }
-
-function appendMessage(text, className) {
-  const msg = document.createElement("div");
-  msg.className = `message ${className}`;
-  msg.textContent = text;
-  messagesContainer.appendChild(msg);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  return msg;
-}
-
-sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
