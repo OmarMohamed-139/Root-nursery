@@ -43,8 +43,7 @@
     <section class="program-details-section section-padding">
         <div class="container">
             <div class="back-nav">
-                <a href="index.html#programs" class="back-btn"><i class="fa-solid fa-arrow-right"></i> العودة للبرامج
-                    والفلترة</a>
+                <a href="index.html#programs" class="back-btn"><i class="fa-solid fa-arrow-right"></i> العودة للبرامج والفلترة</a>
             </div>
 
             <div class="program-detail-container" id="programDetailContent">
@@ -57,17 +56,14 @@
                 <div class="program-body-grid">
                     <div class="program-main-text">
                         <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف البرنامج التعليمية</h3>
-                        <p id="progGoals">هنا يمكنك كتابة تفاصيل إضافية عن ما يتعلمه الطفل في هذا البرنامج، المناهج
-                            التفاعلية، والأنشطة اليومية المدعومة بالذكاء الاصطناعي.</p>
+                        <p id="progGoals">هنا يمكنك كتابة تفاصيل إضافية عن ما يتعلمه الطفل في هذا البرنامج، المناهج التفاعلية، والأنشطة اليومية المدعومة بالذكاء الاصطناعي.</p>
 
-                        <h3 class="mt-30"><i class="fa-solid fa-list-check text-green"></i> محتوى الكورسات والوحدات
-                            التعليمية</h3>
-                        <p class="section-subtext">قائمة محتوى الكورس المجدولة لهذا البرنامج والتي يمكنك تعديلها أو
-                            إضافتها مستقبلاً:</p>
+                        <h3 class="mt-30"><i class="fa-solid fa-list-check text-green"></i> محتوى الكورسات والوحدات التعليمية</h3>
+                        <p class="section-subtext">قائمة محتوى الكورس المجدولة لهذا البرنامج والتي يمكنك تعديلها أو إضافتها مستقبلاً:</p>
 
                         <!-- قوائم محتوى الكورسات التي سيتم تعبئتها ديناميكياً -->
                         <div class="course-modules-list" id="progCoursesList">
-                            <!-- سيتم حقن المحتوى هنا -->
+                            <!-- سيتم حقن المحتوى ديناميكياً عبر script.js -->
                         </div>
                     </div>
 
@@ -105,8 +101,7 @@
                 <ul>
                     <li><a href="program-details.html?program=toddlers">الحضانات الصغرى (Toddlers)</a></li>
                     <li><a href="program-details.html?program=preschool">ما قبل التمهيدي (Pre-School)</a></li>
-                    <li><a href="program-details.html?program=kindergarten">الروضة وتأهيل المدرسة (Kindergarten)</a>
-                    </li>
+                    <li><a href="program-details.html?program=kindergarten">الروضة وتأهيل المدرسة (Kindergarten)</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -128,6 +123,60 @@
     <a href="https://wa.me/201000000000" class="whatsapp-float" target="_blank" aria-label="تواصل واتساب">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <!-- المساعد الصوتي "محمد" متوفر أيضاً في صفحة تفاصيل البرامج -->
+    <div id="chat-widget-container">
+        <button id="chat-toggle-btn" aria-label="تحدث مع محمد">
+            <span>دردش مع محمد</span>
+            <div class="voice-pulse-circle">
+                <i class="fa-solid fa-microphone-lines"></i>
+                <div class="pulse-ring"></div>
+            </div>
+        </button>
+
+        <div id="chat-box" class="chat-hidden">
+            <div class="chat-header">
+                <div class="header-info">
+                    <div class="live-indicator"></div>
+                    <div>
+                        <h4>محمد (المساعد الصوتي)</h4>
+                        <span class="bot-status" id="botStatus">متصل ومستعد للكلام</span>
+                    </div>
+                </div>
+                <button id="close-chat" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="voice-avatar-stage">
+                <div class="orb-container" id="orbContainer">
+                    <div class="wave wave-1"></div>
+                    <div class="wave wave-2"></div>
+                    <div class="wave wave-3"></div>
+                    <div class="orb-core" id="orbCore">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                </div>
+                <div class="voice-caption" id="voiceCaption">اضغط على المايك وكلمني في أي حاجة تحبها!</div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message-row bot-row">
+                    <div class="message bot-message">
+                        أهلاً بيك يا غالي! أنا <strong>محمد</strong>، حابب تسألني عن تفاصيل البرنامج ده ولا ندردش في أي حاجة تانية؟ أنا جاهز!
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="اكتب أو اتكلم بالمايك..." autocomplete="off">
+                <button id="voice-btn" class="main-mic-action" title="تحدث بصوتك">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button id="send-btn" title="إرسال">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. نموذج الاستفسارات العادي
+    // 2. معالجة نموذج الاستفسارات
     const inquiryForm = document.getElementById('inquiryForm');
     const successToast = document.getElementById('successToast');
 
@@ -43,7 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. تفاصيل البرامج
+    // 3. تأثير التمرير للـ Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (!navbar) return;
+        if (window.scrollY > 50) {
+            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            navbar.style.height = '80px';
+        } else {
+            navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.05)';
+            navbar.style.height = '90px';
+        }
+    });
+
+    // 4. تحميل تفاصيل البرنامج ومحتوى الكورسات ديناميكياً في صفحة program-details.html
     const urlParams = new URLSearchParams(window.location.search);
     const programId = urlParams.get('program');
 
@@ -151,227 +164,261 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. شريط التنقل
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                navbar.style.height = '80px';
-            } else {
-                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.05)';
-                navbar.style.height = '90px';
-            }
-        });
-    }
-
-    // 5. تشغيل المساعد الصوتي
-    initVoiceChatbot();
-});
-
-// ==========================================
-// محرك الذكاء الصوتي المدمج (Offline Native AI)
-// ==========================================
-
-function getLocalBotReply(userText) {
-    const text = userText.toLowerCase().trim();
-
-    // التحية
-    if (text.includes("ازيك") || text.includes("عامل ايه") || text.includes("مرحبا") || text.includes("اهلا") || text.includes("سلام")) {
-        return "أهلاً بك! أنا بخير وسعيد بالتحدث معك. أنا المساعد الذكي لحضانة Roots، كيف أستطيع مساعدتك اليوم؟";
-    }
-
-    // المميزات
-    if (text.includes("مميز") || text.includes("ليه اختار") || text.includes("ميزه") || text.includes("عن الحضانة") || text.includes("مين انتو")) {
-        return "تتميز حضانة Roots بدمج التربية الحديثة مع تقنيات الذكاء الاصطناعي، ورعاية فردية لكل طفل، مع بيئة آمنة وكاميرات مراقبة وأنشطة تفاعلية لتنمية التفكير المبكر.";
-    }
-
-    // البرامج والمراحل العمرية
-    if (text.includes("برامج") || text.includes("برنامج") || text.includes("سن") || text.includes("اعمار") || text.includes("عمر") || text.includes("مراحل")) {
-        return "نقدم ثلاثة برامج تعليمية: برنامج الحضانات الصغرى من سنة إلى سنتين، برنامج ما قبل التمهيدي من سنتين إلى ثلاث سنوات، وبرنامج الروضة والتأهيل المدرسي من ثلاث إلى خمس سنوات.";
-    }
-
-    // مواعيد العمل
-    if (text.includes("مواعيد") || text.includes("ساعات") || text.includes("وقت") || text.includes("تفتح") || text.includes("تقفل") || text.includes("ايام")) {
-        return "مواعيد العمل لدينا من الأحد إلى الخميس، من الساعة السابعة والنصف صباحاً حتى الرابعة عصراً، ويومي الجمعة والسبت عطلة رسمية.";
-    }
-
-    // الأسعار والمصروفات
-    if (text.includes("سعر") || text.includes("اسعار") || text.includes("مصاريف") || text.includes("فلوس") || text.includes("تكلف") || text.includes("بكام")) {
-        return "تختلف المصروفات بحسب البرنامج والمستوى، يمكنك التواصل مع إدارة الحضانة عبر الواتساب على رقم 01000000000 لمعرفة كافة التفاصيل وعروض التسجيل.";
-    }
-
-    // العنوان والموقع
-    if (text.includes("عنوان") || text.includes("مكان") || text.includes("فين") || text.includes("موقعك")) {
-        return "مقر حضانة Roots يقع في الشارع الرئيسي بجوار النادي، ويسعدنا جداً استقبالكم لزيارة الحضانة والتعرف عليها عن قرب.";
-    }
-
-    // التقديم والتسجيل
-    if (text.includes("تقديم") || text.includes("تسجيل") || text.includes("اشترك") || text.includes("احجز")) {
-        return "يمكنك التقديم عبر ملء نموذج الاستفسارات في أسفل الصفحة، أو زيارتنا مباشرة في مقر الحضانة، أو التواصل معنا عبر الهاتف لحجز المقابلة.";
-    }
-
-    // رد عام ذكي
-    return "أهلاً بك في حضانة Roots! نحن نقدم برامج تعليمية حديثة للأطفال من عمر سنة حتى خمس سنوات بالدمج مع أدوات الذكاء الاصطناعي. يمكنك سؤالي عن البرامج، المواعيد، أو كيفية التقديم!";
-}
-
-// التحكم بحالة الأفاتار البصري
-function setOrbState(state, captionText) {
-    const orb = document.getElementById('voice-orb');
-    const caption = document.getElementById('voice-caption');
-    const statusText = document.getElementById('agent-status-text');
-
-    if (orb) {
-        orb.classList.remove('listening', 'speaking');
-        if (state !== 'idle') orb.classList.add(state);
-    }
-    if (caption && captionText) caption.innerText = captionText;
-
-    if (statusText) {
-        if (state === 'listening') statusText.innerText = "جاري الاستماع لصوتك...";
-        else if (state === 'speaking') statusText.innerText = "المساعد يتحدث الآن...";
-        else statusText.innerText = "جاهز للاستماع والتحدث";
-    }
-}
-
-// نطق الرد الصوتي باللغة العربية مع الأفاتار
-function speakVoiceResponse(text) {
-    if (!('speechSynthesis' in window)) return;
-
-    window.speechSynthesis.cancel();
-
-    const cleanText = text.replace(/[*#_~]/g, '');
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'ar-SA';
-    utterance.rate = 1.0;
-    utterance.pitch = 1.05;
-
-    utterance.onstart = () => {
-        setOrbState('speaking', 'المساعد يجيبك صوتياً الآن...');
-    };
-
-    utterance.onend = () => {
-        setOrbState('idle', 'اضغط على المايك لبدء محادثة جديدة');
-    };
-
-    utterance.onerror = () => {
-        setOrbState('idle', 'اضغط على المايك لبدء محادثة جديدة');
-    };
-
-    window.speechSynthesis.speak(utterance);
-}
-
-function initVoiceChatbot() {
+    // ============================================================
+    // 5. المساعد الصوتي المصري "محمد" (صوت ولد + يتكلم في أي حاجة)
+    // ============================================================
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
-    const chatCloseBtn = document.getElementById('chat-close-btn');
-    const sendBtn = document.getElementById('send-btn');
+    const chatBox = document.getElementById('chat-box');
+    const closeChatBtn = document.getElementById('close-chat');
+    const chatMessages = document.getElementById('chatMessages');
     const userInput = document.getElementById('user-input');
-    const micBtn = document.getElementById('mic-btn');
+    const sendBtn = document.getElementById('send-btn');
+    const voiceBtn = document.getElementById('voice-btn');
+    const orbContainer = document.getElementById('orbContainer');
+    const voiceCaption = document.getElementById('voiceCaption');
+    const botStatus = document.getElementById('botStatus');
 
-    if (chatToggleBtn) chatToggleBtn.addEventListener('click', toggleChat);
-    if (chatCloseBtn) chatCloseBtn.addEventListener('click', toggleChat);
-    if (sendBtn) sendBtn.addEventListener('click', handleSendMessage);
+    let isListening = false;
+    let recognition = null;
+    let maleVoice = null;
 
-    if (userInput) {
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSendMessage();
-            }
-        });
+    // استخراج أفضل صوت ولد عربي/مصري من النظام
+    function loadVoices() {
+        if (!('speechSynthesis' in window)) return;
+        const voices = window.speechSynthesis.getVoices();
+        maleVoice = voices.find(v =>
+            v.lang.startsWith('ar') && (
+                v.name.toLowerCase().includes('male') ||
+                v.name.toLowerCase().includes('tarik') ||
+                v.name.toLowerCase().includes('shaker') ||
+                v.name.toLowerCase().includes('naayf') ||
+                v.name.toLowerCase().includes('maged') ||
+                v.name.toLowerCase().includes('bassam')
+            )
+        ) || voices.find(v => v.lang.includes('ar-EG')) || voices.find(v => v.lang.startsWith('ar'));
     }
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition && micBtn) {
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'ar-SA';
-        recognition.continuous = false;
-        recognition.interimResults = false;
+    if ('speechSynthesis' in window) {
+        loadVoices();
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
 
-        micBtn.addEventListener('click', () => {
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    // فتح وإغلاق صندوق المحادثة
+    if (chatToggleBtn && chatBox) {
+        chatToggleBtn.addEventListener('click', () => {
+            chatBox.classList.toggle('chat-hidden');
+            if (!chatBox.classList.contains('chat-hidden')) {
+                userInput.focus();
+            }
+        });
 
-            if (micBtn.classList.contains('listening')) {
-                recognition.stop();
-            } else {
-                try {
-                    recognition.start();
-                } catch (err) {
-                    console.error(err);
+        if (closeChatBtn) {
+            closeChatBtn.addEventListener('click', () => {
+                chatBox.classList.add('chat-hidden');
+                stopListening();
+                window.speechSynthesis.cancel();
+            });
+        }
+    }
+
+    function appendMessage(sender, text) {
+        const row = document.createElement('div');
+        row.className = `message-row ${sender === 'user' ? 'user-row' : 'bot-row'}`;
+        row.innerHTML = `<div class="message ${sender === 'user' ? 'user-message' : 'bot-message'}">${text}</div>`;
+        chatMessages.appendChild(row);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // نطق الرد بصوت ولد مصري وتفعيل أنيميشن الـ Speaking
+    function speakMaleReply(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+
+        const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'ar-EG'; // لهجة مصرية
+        utterance.pitch = 0.82;   // نبرة خشنة لتبدو صوت ولد
+        utterance.rate = 0.95;
+
+        if (maleVoice) utterance.voice = maleVoice;
+
+        orbContainer.classList.remove('listening');
+        orbContainer.classList.add('speaking');
+        voiceCaption.textContent = "محمد بيتكلم معاك...";
+        if (botStatus) botStatus.textContent = "بيتكلم...";
+
+        utterance.onend = () => {
+            orbContainer.classList.remove('speaking');
+            voiceCaption.textContent = "اضغط على المايك وكلمني في أي حاجة!";
+            if (botStatus) botStatus.textContent = "متصل ومستعد للكلام";
+        };
+
+        utterance.onerror = () => {
+            orbContainer.classList.remove('speaking');
+            voiceCaption.textContent = "اضغط على المايك وكلمني في أي حاجة!";
+            if (botStatus) botStatus.textContent = "متصل ومستعد للكلام";
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // معالجة وإرسال السؤال (سواء عام أو عن الموقع)
+    async function getMohamedResponse(userText) {
+        appendMessage('user', userText);
+
+        const typingRow = document.createElement('div');
+        typingRow.className = 'message-row bot-row';
+        typingRow.id = 'typingIndicator';
+        typingRow.innerHTML = '<div class="message bot-message"><i class="fa-solid fa-spinner fa-spin"></i> بفكر في الرد...</div>';
+        chatMessages.appendChild(typingRow);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: userText,
+                    systemInstruction: "أنت شاب مصري اسمك محمد، جدع ودمك خفيف. تحدث دائماً باللهجة المصرية العامية 100% بدون أي فصحى، ردودك قصيرة (جملة أو جملتين) لأنك تتحدث صوتياً، وأجب في أي موضوع يطرحه المستخدم بحرية تامة."
+                })
+            });
+            const data = await res.json();
+
+            document.getElementById('typingIndicator')?.remove();
+            appendMessage('bot', data.reply);
+            speakMaleReply(data.reply);
+        } catch (error) {
+            document.getElementById('typingIndicator')?.remove();
+            const fallback = generateAnyTopicReply(userText);
+            appendMessage('bot', fallback);
+            speakMaleReply(fallback);
+        }
+    }
+
+    // ردود مصرية مفتوحة لأي موضوع
+    function generateAnyTopicReply(text) {
+        const q = text.toLowerCase().trim();
+
+        if (q.includes('اسمك') || q.includes('مين انت')) {
+            return "أنا محمد يا غالي! شاب مصري وصاحبك هنا، كلمني في أي حاجة تحبها وأنا في خدمتك.";
+        }
+        if (q.includes('ازيك') || q.includes('عامل ايه') || q.includes('اخبارك') || q.includes('مساء') || q.includes('صباح')) {
+            return "الحمد لله كله فل وزي العسل يا باشا! أنت طمني عنك وعن يومك؟";
+        }
+        if (q.includes('نكتة') || q.includes('ضحكني') || q.includes('هزار')) {
+            const jokes = [
+                "مرة واحد بخيل أبوه مات عيط بعين واحدة علشان الدموع متخلصش!",
+                "واحد كسلان دخل سباق جري ركب تاكسي علشان يوصل الأول!",
+                "مرة كمبيوتر عطش، جابوله كباية رام يشربها!"
+            ];
+            return jokes[Math.floor(Math.random() * jokes.length)];
+        }
+        if (q.includes('كورة') || q.includes('اهلي') || q.includes('زمالك') || q.includes('ماتش')) {
+            return "الكورة في مصر دي مزاج عالي يا عم! قولي بقى أنت بتشجع مين؟";
+        }
+        if (q.includes('اكل') || q.includes('جعان') || q.includes('طبيخ') || q.includes('مطعم')) {
+            return "والله فتحت نفسي، مفيش أحسن من طبق كشري متحبش شطة ودقة أو حواوشي سخن دلوقتي!";
+        }
+        if (q.includes('برمجة') || q.includes('بايثون') || q.includes('كود') || q.includes('كمبيوتر')) {
+            return "البرمجة دي المتعة كلها! شغال على مشروع جديد ولا لسه بتتعلم؟";
+        }
+        if (q.includes('حضانة') || q.includes('روتس') || q.includes('roots')) {
+            return "حضانة روتس دي بيتي التاني، بنعلم الأطفال هنا بأحدث تقنيات الذكاء الاصطناعي وبطرق ممتعة جداً!";
+        }
+        if (q.includes('شكرا') || q.includes('تسلم') || q.includes('حبيبي')) {
+            return "حبيبي يا صاحبي، الشكر لله ده أنا معاك في أي وقت دايماً!";
+        }
+
+        const generalReplies = [
+            "والله فكرة جامدة وكلامك في الجون يا صاحبي! تحب نتكلم فيها أكتر؟",
+            "سؤال حلو جداً ويستاهل نقعد ندردش فيه بمزاج، قولي إيه أكتر حاجة شاغلة بالك؟",
+            "أنا معاك في كل كلمة بتقولها، كمل أنا سامعك ومتابعك باهتمام!",
+            "كلام مظبوط يا غالي، قولي تفاصيل أكتر عن اللي في دماغك!"
+        ];
+        return generalReplies[Math.floor(Math.random() * generalReplies.length)];
+    }
+
+    // إرسال بالضغط على الزر أو مفتاح Enter
+    if (sendBtn && userInput) {
+        sendBtn.addEventListener('click', () => {
+            const val = userInput.value.trim();
+            if (val) {
+                getMohamedResponse(val);
+                userInput.value = '';
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const val = userInput.value.trim();
+                if (val) {
+                    getMohamedResponse(val);
+                    userInput.value = '';
                 }
             }
         });
+    }
+
+    // تفعيل التعرف الصوتي باللهجة المصرية
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'ar-EG';
+        recognition.continuous = false;
+        recognition.interimResults = false;
 
         recognition.onstart = () => {
-            micBtn.classList.add('listening');
-            setOrbState('listening', 'تفضل، أنا أستمع إليك الآن...');
+            isListening = true;
+            if (voiceBtn) voiceBtn.classList.add('listening');
+            orbContainer.classList.add('listening');
+            orbContainer.classList.remove('speaking');
+            voiceCaption.textContent = "محمد سامعك دلوقتي.. اتكلم براحتك";
+            if (botStatus) botStatus.textContent = "بيسمعك...";
         };
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            if (userInput) {
-                userInput.value = transcript;
-                handleSendMessage();
-            }
+        recognition.onresult = (e) => {
+            const transcript = e.results[0][0].transcript;
+            stopListening();
+            getMohamedResponse(transcript);
         };
 
         recognition.onerror = () => {
-            micBtn.classList.remove('listening');
-            setOrbState('idle', 'حدث خطأ في التقاط الصوت، حاول مجدداً');
+            stopListening();
+            voiceCaption.textContent = "الصوت مكنش واضح، جرب تدوس ع المايك تاني!";
+            if (botStatus) botStatus.textContent = "متصل ومستعد للكلام";
         };
 
         recognition.onend = () => {
-            micBtn.classList.remove('listening');
+            stopListening();
         };
-    } else if (micBtn) {
-        micBtn.style.display = 'none';
-    }
-}
 
-function toggleChat() {
-    const chatBox = document.getElementById('chat-box');
-    if (chatBox) {
-        chatBox.classList.toggle('chat-hidden');
-        if (!chatBox.classList.contains('chat-hidden')) {
-            const userInput = document.getElementById('user-input');
-            if (userInput) userInput.focus();
-        } else {
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            setOrbState('idle', 'اضغط على المايك وابدأ الحديث مع حضانة Roots');
+        if (voiceBtn) {
+            voiceBtn.addEventListener('click', () => {
+                if (chatBox.classList.contains('chat-hidden')) {
+                    chatBox.classList.remove('chat-hidden');
+                }
+                if (isListening) {
+                    stopListening();
+                } else {
+                    try {
+                        window.speechSynthesis.cancel();
+                        recognition.start();
+                    } catch (err) {
+                        recognition.stop();
+                    }
+                }
+            });
         }
     }
-}
 
-function appendMessage(text, type) {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) return null;
-
-    const row = document.createElement('div');
-    row.className = `message-row ${type}-row`;
-    row.innerHTML = `<div class="${type}-message message">${text}</div>`;
-
-    messagesContainer.appendChild(row);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    return row;
-}
-
-function handleSendMessage() {
-    const userInput = document.getElementById('user-input');
-    if (!userInput) return;
-
-    const text = userInput.value.trim();
-    if (!text) return;
-
-    appendMessage(text, 'user');
-    userInput.value = '';
-
-    setOrbState('speaking', 'جاري التفكير وتوليد الرد الصوتي...');
-    const loadingRow = appendMessage('جاري التفكير...', 'bot');
-
-    setTimeout(() => {
-        if (loadingRow) loadingRow.remove();
-        const reply = getLocalBotReply(text);
-        appendMessage(reply, 'bot');
-        speakVoiceResponse(reply);
-    }, 600);
-}
+    function stopListening() {
+        isListening = false;
+        if (voiceBtn) voiceBtn.classList.remove('listening');
+        if (orbContainer) orbContainer.classList.remove('listening');
+        if (recognition) {
+            try { recognition.stop(); } catch (err) { }
+        }
+    }
+});

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- أيقونة المتصفح (Favicon) -->
     <link rel="icon" type="image/png" href="Tap img.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -135,6 +134,7 @@
                 <p>برامج ذكية ومبتكرة مصممة بعناية لتناسب كل مرحلة نمو يمر بها طفلك. اضغط على أي برنامج لتفاصيله.</p>
             </div>
             <div class="programs-grid">
+                <!-- البرنامج الأول -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80"
@@ -154,6 +154,7 @@
                     </div>
                 </div>
 
+                <!-- البرنامج الثاني -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80"
@@ -173,6 +174,7 @@
                     </div>
                 </div>
 
+                <!-- البرنامج الثالث -->
                 <div class="program-card">
                     <div class="program-img">
                         <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80"
@@ -361,60 +363,62 @@
         <span>تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</span>
     </div>
 
-    <!-- نافذة المساعد الصوتي التفاعلي الشبيه بـ Yamamah Voice Agent -->
+    <!-- ========================================================
+         المساعد الصوتي المصري "محمد" (Orb Voice UI)
+         ======================================================== -->
     <div id="chat-widget-container">
-        <!-- زر فتح المحادثة الصوتي العائم -->
-        <button id="chat-toggle-btn" type="button">
+        <!-- زر فتح المساعد الصوتي -->
+        <button id="chat-toggle-btn" aria-label="تحدث مع محمد">
+            <span>دردش مع محمد</span>
             <div class="voice-pulse-circle">
-                <span class="pulse-ring"></span>
-                <i class="fa-solid fa-waveform-lines fa-microphone"></i>
+                <i class="fa-solid fa-microphone-lines"></i>
+                <div class="pulse-ring"></div>
             </div>
-            <span>المساعد الصوتي الذكي</span>
         </button>
 
-        <!-- نافذة المساعد الصوتي الحديثة -->
+        <!-- صندوق المحادثة الصوتي الكامل -->
         <div id="chat-box" class="chat-hidden">
-            <!-- شريط علوي أنيق -->
             <div class="chat-header">
                 <div class="header-info">
-                    <span class="live-indicator"></span>
+                    <div class="live-indicator"></div>
                     <div>
-                        <h4>Roots AI Voice</h4>
-                        <span id="agent-status-text" class="bot-status">جاهز للاستماع والتحدث</span>
+                        <h4>محمد (المساعد الصوتي)</h4>
+                        <span class="bot-status" id="botStatus">متصل ومستعد للكلام</span>
                     </div>
                 </div>
-                <button type="button" id="chat-close-btn" aria-label="إغلاق">✕</button>
+                <button id="close-chat" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- مساحة الأفاتار الصوتي الحي (Voice Orb / Waveform) -->
+            <!-- مسرح الأفاتار الصوتي المتفاعل (Orb) -->
             <div class="voice-avatar-stage">
-                <div class="orb-container" id="voice-orb">
-                    <div class="orb-glow"></div>
-                    <div class="orb-core">
-                        <i class="fa-solid fa-sparkles"></i>
-                    </div>
+                <div class="orb-container" id="orbContainer">
                     <div class="wave wave-1"></div>
                     <div class="wave wave-2"></div>
                     <div class="wave wave-3"></div>
+                    <div class="orb-core" id="orbCore">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
                 </div>
-                <p id="voice-caption" class="voice-caption">اضغط على المايك وابدأ الحديث مع حضانة Roots</p>
+                <div class="voice-caption" id="voiceCaption">اضغط على المايك وكلمني في أي حاجة في بالك!</div>
             </div>
 
-            <!-- منطقة عرض نصوص المحادثة الصوتية -->
-            <div id="chat-messages" class="chat-messages">
+            <!-- الرسائل النصية المدمجة -->
+            <div class="chat-messages" id="chatMessages">
                 <div class="message-row bot-row">
-                    <div class="bot-message message">أهلاً بك! أنا مساعد حضانة Roots الذكي. اضغط على المايك وتحدث معي
-                        مباشرة وسأجيبك صوتياً وكتابياً! 🎙️</div>
+                    <div class="message bot-message">
+                        أهلاً بيك يا باشا! أنا <strong>محمد</strong>، دردش معايا بصوتك أو كتابة في أي موضوع تحبه.. أنا
+                        معاك وسامعك!
+                    </div>
                 </div>
             </div>
 
-            <!-- أزرار التحكم الصوتي والكتابي -->
+            <!-- شريط الكتابة والمايك -->
             <div class="chat-input-area">
-                <input type="text" id="user-input" placeholder="اكتب سؤالك أو تحدث بالمايك..." autocomplete="off" />
-                <button type="button" id="mic-btn" class="main-mic-action" title="تحدث بالمايك">
+                <input type="text" id="user-input" placeholder="اكتب أو اتكلم بالمايك..." autocomplete="off">
+                <button id="voice-btn" class="main-mic-action" title="تحدث بصوتك">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
-                <button type="button" id="send-btn" title="إرسال نصي">
+                <button id="send-btn" title="إرسال">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
             </div>
