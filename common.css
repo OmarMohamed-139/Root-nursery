@@ -1,0 +1,554 @@
+:root {
+    --primary: #2e7d32;
+    --primary-light: #4caf50;
+    --secondary: #ffb300;
+    --accent: #e53935;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-light: #f9fbfd;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--text-dark);
+    background-color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+/* الأزرار العامة */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    background-color: #ffa000;
+}
+
+.btn-large {
+    padding: 14px 34px;
+    font-size: 1.05rem;
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
+}
+
+/* الشعار والنافبار */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 170px;
+}
+
+.logo-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: scaleX(-1);
+    transform-origin: center;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+/* ترويسة الصفحات الفرعية */
+.page-header {
+    padding-top: 150px;
+    padding-bottom: 50px;
+    background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+}
+
+.page-header h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* الفوتر */
+.footer {
+    background: #1a252f;
+    color: var(--white);
+    padding-top: 60px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 30px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-col p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-top: 15px;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.footer-col ul li a:hover {
+    color: var(--secondary);
+    padding-right: 5px;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    background: var(--secondary);
+    color: var(--text-dark);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+/* زر واتساب العائم */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: #25d366;
+    color: var(--white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 999;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+/* نافذة المساعد الصوتي محمد */
+#chat-widget-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    direction: rtl;
+}
+
+#chat-toggle-btn {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32, #4caf50);
+    color: #ffffff;
+    border: none;
+    padding: 10px 22px 10px 14px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(46, 125, 50, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.voice-pulse-circle {
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-box {
+    width: 360px;
+    height: 540px;
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+}
+
+.chat-hidden {
+    display: none !important;
+}
+
+.chat-header {
+    background: rgba(15, 23, 42, 0.85);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.voice-avatar-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px 10px;
+}
+
+.orb-container {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orb-core {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #4ade80, #15803d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+.voice-caption {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 12px 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+}
+
+.bot-message {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.user-message {
+    background: #2e7d32;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    background: #0f172a;
+    gap: 8px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 25px;
+    padding: 8px 14px;
+    color: #fff;
+    outline: none;
+}
+
+.main-mic-action,
+#send-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-mic-action {
+    background: #1e293b;
+    color: #4ade80;
+}
+
+#send-btn {
+    background: #2e7d32;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 85px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 85px);
+        background: var(--white);
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        transition: var(--transition);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .contact-btn {
+        display: none;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* أفاتار الولد في الشات بوت */
+.boy-avatar-mini {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boy-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.boy-avatar-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px 12px;
+    background: radial-gradient(circle at center, rgba(46, 125, 50, 0.2) 0%, transparent 70%);
+}
+
+.boy-character-circle {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    border: 3px solid #4ade80;
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boy-svg-large {
+    width: 100%;
+    height: 100%;
+}
+
+.speaking-avatar {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
+    border-color: #38bdf8;
+    animation: avatarSpeak 0.6s infinite alternate ease-in-out;
+}
+
+.listening-avatar {
+    transform: scale(1.12);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.8);
+    border-color: #ea580c;
+}
+
+@keyframes avatarSpeak {
+    0% {
+        transform: translateY(0) scale(1.05);
+    }
+
+    100% {
+        transform: translateY(-5px) scale(1.12);
+    }
+}

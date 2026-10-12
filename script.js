@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // رابط Google Sheets السحابي
+    // ============================================================
+    // 0. إعدادات السحابة والروابط
+    // ============================================================
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLNxKxSC35hCR7ofTrxnpIpUO-uqJZKcKzM9lum48-179aeV40_HsjWuPtvxUMz4biAg/exec";
 
-    // 1. القائمة المتنقلة للموبايل
+    // ============================================================
+    // 1. القائمة المتنقلة للشاشات الصغيرة (Mobile Nav)
+    // ============================================================
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
 
@@ -31,7 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. إشعار الـ Toast السريع
+    // ============================================================
+    // 2. إشعارات التنبيه السريعة (Toast)
+    // ============================================================
     const successToast = document.getElementById('successToast');
     const toastMsg = document.getElementById('toastMsg');
     const toastIcon = document.getElementById('toastIcon');
@@ -60,7 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
+    // ============================================================
     // 3. نافذة تأكيد الإرسال في منتصف الصفحة (Center Modal)
+    // ============================================================
     const confirmModal = document.getElementById('confirmModal');
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const modalWaBtn = document.getElementById('modalWaBtn');
@@ -68,8 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal(studentName, waUrl) {
         if (!confirmModal) return;
-        document.getElementById('modalTitle').textContent = `تم تسجيل الطالب (${studentName}) بنجاح!`;
-        document.getElementById('modalDesc').textContent = 'تم إرسال وحفظ الطلب في قاعدة بيانات المدرسة. نتطلع للقائكم لتثبيت المقعد.';
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        if (modalTitle) modalTitle.textContent = `تم تسجيل الطالب (${studentName}) بنجاح!`;
+        if (modalDesc) modalDesc.textContent = 'تم إرسال وحفظ الطلب في قاعدة بيانات المدرسة. نتطلع للقائكم لتثبيت المقعد.';
         lastRegisteredWaUrl = waUrl;
         confirmModal.classList.add('active');
     }
@@ -89,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // إغلاق النافذة عند الضغط خارج البطاقة
     if (confirmModal) {
         confirmModal.addEventListener('click', (e) => {
             if (e.target === confirmModal) {
@@ -99,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================================
-    // 4. قيود الإدخال الصارمة (حروف فقط وحقول أرقام فقط)
+    // 4. قيود الإدخال الصارمة (حروف عربية فقط وأرقام فقط)
     // ============================================================
     const parentNameInput = document.getElementById('parentName');
     const studentNameInput = document.getElementById('studentName');
@@ -110,21 +119,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const dobInput = document.getElementById('studentDob');
     const dobHint = document.getElementById('dobHint');
 
-    // أ. قيود الأسماء: حروف عربية ومسافات فقط (تمنع الأرقام والرموز نهائياً)
+    // أ. قيود الأسماء: حروف عربية ومسافات فقط
     function enforceArabicLettersOnly(e) {
         e.target.value = e.target.value.replace(/[^\u0600-\u06FF\s]/g, '');
     }
     if (parentNameInput) parentNameInput.addEventListener('input', enforceArabicLettersOnly);
     if (studentNameInput) studentNameInput.addEventListener('input', enforceArabicLettersOnly);
 
-    // ب. قيود الأرقام: الهوية والهاتف (أرقام فقط)
+    // ب. قيود الأرقام: الهوية والهاتف
     function enforceDigitsOnly(e) {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
     }
     if (parentIdInput) parentIdInput.addEventListener('input', enforceDigitsOnly);
     if (parentPhoneInput) parentPhoneInput.addEventListener('input', enforceDigitsOnly);
 
-    // ج. قيود الواتساب: أرقام مع السماح بعلامة + فقط في البداية
+    // ج. قيود الواتساب: أرقام وسماح بعلامة + في البداية فقط
     if (parentWaInput) {
         parentWaInput.addEventListener('input', (e) => {
             let val = e.target.value;
@@ -134,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // د. فحص عمر التمهيدي
+    // د. فحص عمر التمهيدي KG2
     function checkKgAge() {
         if (gradeSelect && gradeSelect.value === 'تمهيدي KG2' && dobInput && dobInput.value) {
             const birthDate = new Date(dobInput.value);
@@ -163,58 +172,61 @@ document.addEventListener('DOMContentLoaded', () => {
         registrationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const pName = parentNameInput.value.trim();
-            const pId = parentIdInput.value.trim();
-            const pPhone = parentPhoneInput.value.trim();
-            const pWa = parentWaInput.value.trim();
-            const sName = studentNameInput.value.trim();
-            const sDob = dobInput.value;
-            const grade = gradeSelect.value;
-            const transfer = document.getElementById('hasTransferFile').value;
-            const transport = document.getElementById('transportLocation').value;
-            const siblings = document.getElementById('siblingsCount').value;
+            const pName = parentNameInput ? parentNameInput.value.trim() : '';
+            const pId = parentIdInput ? parentIdInput.value.trim() : '';
+            const pPhone = parentPhoneInput ? parentPhoneInput.value.trim() : '';
+            const pWa = parentWaInput ? parentWaInput.value.trim() : '';
+            const sName = studentNameInput ? studentNameInput.value.trim() : '';
+            const sDob = dobInput ? dobInput.value : '';
+            const grade = gradeSelect ? gradeSelect.value : '';
+            const transfer = document.getElementById('hasTransferFile') ? document.getElementById('hasTransferFile').value : '';
+            const transport = document.getElementById('transportLocation') ? document.getElementById('transportLocation').value : '';
+            const siblings = document.getElementById('siblingsCount') ? document.getElementById('siblingsCount').value : '';
 
             // التحقق من الحقول
             if (pName.split(' ').filter(w => w.length > 1).length < 3) {
                 showToast('يرجى كتابة اسم ولي الأمر ثلاثياً على الأقل بالحروف العربية.', true);
-                parentNameInput.focus();
+                if (parentNameInput) parentNameInput.focus();
                 return;
             }
 
             if (pId.length !== 9) {
                 showToast('رقم الهوية يجب أن يتكون من 9 أرقام بالضبط.', true);
-                parentIdInput.focus();
+                if (parentIdInput) parentIdInput.focus();
                 return;
             }
 
             if (pPhone.length < 9) {
                 showToast('يرجى إدخال رقم هاتف صحيح.', true);
-                parentPhoneInput.focus();
+                if (parentPhoneInput) parentPhoneInput.focus();
                 return;
             }
 
             if (sName.split(' ').filter(w => w.length > 1).length < 2) {
                 showToast('يرجى كتابة اسم الطالب ثنائياً أو ثلاثياً بالحروف العربية.', true);
-                studentNameInput.focus();
+                if (studentNameInput) studentNameInput.focus();
                 return;
             }
 
             if (!sDob) {
                 showToast('يرجى اختيار تاريخ ميلاد الطالب.', true);
-                dobInput.focus();
+                if (dobInput) dobInput.focus();
                 return;
             }
 
             if (!grade) {
                 showToast('يرجى تحديد المرحلة أو الصف المطلوب.', true);
-                gradeSelect.focus();
+                if (gradeSelect) gradeSelect.focus();
                 return;
             }
 
             const submitBtn = document.getElementById('submitRegBtn');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري حفظ وإرسال البيانات...';
-            submitBtn.disabled = true;
+            let originalBtnText = '';
+            if (submitBtn) {
+                originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري حفظ وإرسال البيانات...';
+                submitBtn.disabled = true;
+            }
 
             const registrationData = {
                 id: 'REG-' + Date.now(),
@@ -267,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData.toString()
                 });
 
-                // إظهار نافذة التأكيد في منتصف الصفحة
                 openModal(sName, waUrl);
                 registrationForm.reset();
                 if (dobHint) dobHint.textContent = 'اختر تاريخ الميلاد بدقة';
@@ -275,13 +286,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error sending data:', error);
                 openModal(sName, waUrl);
             } finally {
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
+                if (submitBtn) {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
             }
         });
     }
 
-    // تصدير سجلات التسجيل
+    // تصدير سجلات التسجيل بصيغة CSV/Excel
     if (exportDataBtn) {
         exportDataBtn.addEventListener('click', () => {
             const data = JSON.parse(localStorage.getItem('roots_registrations') || '[]');
@@ -324,7 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. تأثير التمرير للـ Navbar
+    // ============================================================
+    // 6. تأثير التمرير لشريط التنقل (Navbar Scroll Effect)
+    // ============================================================
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (!navbar) return;
@@ -333,11 +348,13 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.style.height = '80px';
         } else {
             navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.05)';
-            navbar.style.height = '90px';
+            navbar.style.height = '85px';
         }
     });
 
-    // 7. المساعد الصوتي محمد
+    // ============================================================
+    // 7. المساعد الذكي محمد (أفاتار الولد والحصيلة المعرفية)
+    // ============================================================
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
     const chatBox = document.getElementById('chat-box');
     const closeChatBtn = document.getElementById('close-chat');
@@ -345,25 +362,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('user-input');
     const sendBtn = document.getElementById('send-btn');
     const voiceBtn = document.getElementById('voice-btn');
-    const orbContainer = document.getElementById('orbContainer');
+    const avatarImg = document.getElementById('chatAvatarImg');
     const voiceCaption = document.getElementById('voiceCaption');
     const botStatus = document.getElementById('botStatus');
 
     let isListening = false;
     let recognition = null;
-    let maleVoice = null;
+    let arabicVoice = null;
 
     function loadVoices() {
         if (!('speechSynthesis' in window)) return;
         const voices = window.speechSynthesis.getVoices();
-        maleVoice = voices.find(v =>
-            v.lang.startsWith('ar') && (
-                v.name.toLowerCase().includes('male') ||
-                v.name.toLowerCase().includes('tarik') ||
-                v.name.toLowerCase().includes('shaker') ||
-                v.name.toLowerCase().includes('maged')
-            )
-        ) || voices.find(v => v.lang.includes('ar-EG')) || voices.find(v => v.lang.startsWith('ar'));
+        arabicVoice = voices.find(v => v.lang.startsWith('ar') && (v.name.includes('Male') || v.name.includes('Tarik') || v.name.includes('Maged')))
+            || voices.find(v => v.lang.startsWith('ar'))
+            || voices[0];
     }
 
     if ('speechSynthesis' in window) {
@@ -374,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (chatToggleBtn && chatBox) {
         chatToggleBtn.addEventListener('click', () => {
             chatBox.classList.toggle('chat-hidden');
-            if (!chatBox.classList.contains('chat-hidden')) {
+            if (!chatBox.classList.contains('chat-hidden') && userInput) {
                 userInput.focus();
             }
         });
@@ -389,6 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function appendMessage(sender, text) {
+        if (!chatMessages) return;
         const row = document.createElement('div');
         row.className = `message-row ${sender === 'user' ? 'user-row' : 'bot-row'}`;
         row.innerHTML = `<div class="message ${sender === 'user' ? 'user-message' : 'bot-message'}">${text}</div>`;
@@ -396,78 +409,86 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function speakMaleReply(text) {
+    function speakReply(text) {
         if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
 
         const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
         const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'ar-EG';
-        utterance.pitch = 0.85;
-        utterance.rate = 0.95;
+        utterance.lang = 'ar-SA';
+        utterance.pitch = 1.0;
+        utterance.rate = 1.0;
 
-        if (maleVoice) utterance.voice = maleVoice;
+        if (arabicVoice) utterance.voice = arabicVoice;
 
-        orbContainer.classList.remove('listening');
-        orbContainer.classList.add('speaking');
-        if (voiceCaption) voiceCaption.textContent = "محمد بيتكلم معاك...";
-        if (botStatus) botStatus.textContent = "بيتكلم...";
+        if (avatarImg) avatarImg.classList.add('speaking-avatar');
+        if (voiceCaption) voiceCaption.textContent = "محمد يتحدث معك الآن...";
+        if (botStatus) botStatus.textContent = "يتحدث...";
 
         utterance.onend = utterance.onerror = () => {
-            orbContainer.classList.remove('speaking');
-            if (voiceCaption) voiceCaption.textContent = "اسألني عن الرسوم أو التسجيل!";
+            if (avatarImg) avatarImg.classList.remove('speaking-avatar');
+            if (voiceCaption) voiceCaption.textContent = "أنا جاهز لأي استفسار!";
             if (botStatus) botStatus.textContent = "متصل ومستعد للكلام";
         };
 
         window.speechSynthesis.speak(utterance);
     }
 
-    function generateUnifiedMohamedReply(text) {
+    // الحصيلة المعرفية الموسعة لمحمد باللغة العربية
+    function generateMohamedKnowledge(text) {
         const q = text.toLowerCase().trim();
 
+        if (q.includes('اسم') && (q.includes('روتس') || q.includes('roots') || q.includes('ليش') || q.includes('ليه'))) {
+            return "سُميت مدرستنا Roots لأن المستقبل القوي يبدأ من جذور قوية! وشعارنا الدائم: Strong roots, bright futures.";
+        }
+        if (q.includes('ميس ايه') || q.includes('معلمة انجليزي') || q.includes('ايات') || q.includes('ayat')) {
+            return "ميس آية (Miss Ayat) هي معلمة اللغة الإنجليزية الرائعة في مدرستنا، وتستقبل طلابنا بأساليب تعليمية وتفاعلية محببة جداً!";
+        }
         if (q.includes('تسجيل') || q.includes('اوراق') || q.includes('وثائق') || q.includes('شروط') || q.includes('مطلوب')) {
-            return "لتسجيل الطالب محتاجين: هوية ولي الأمر، شهادة ميلاد الطالب، صورة شخصية، وتكلفة حجز المقعد، وملف نقل لو الطالب في صف ثاني فما فوق!";
+            return "لتسجيل الطالب نحتاج: صورة هوية ولي الأمر، شهادة ميلاد الطالب الأصلية أو المصدقة، صورة شخصية حديثة، تكلفة حجز المقعد، وملف نقل إذا كان الطالب من الصف الثاني فما فوق.";
         }
-        if (q.includes('تمهيدي') || q.includes('kg2') || q.includes('كي جي') || q.includes('العمر') || q.includes('مواليد')) {
-            return "التمهيدي KG2 للمواليد من 1/2/2021 لحد 30/4/2022، وقسطه 150 شيكل شهرياً، والكتب وبلوزتين 100 شيكل.";
+        if (q.includes('تمهيدي') || q.includes('kg2') || q.includes('روضة') || q.includes('عمر') || q.includes('مواليد')) {
+            return "مرحلة التمهيدي KG2 للمواليد بين 1/2/2021 وحتى 30/4/2022، وقسطها 150 شيكل شهرياً، والكتب وبلوزتين بـ 100 شيكل.";
         }
-        if (q.includes('مدرسة') || q.includes('صفوف') || q.includes('قسط') || q.includes('رسوم المدرسة') || q.includes('اسعار')) {
-            return "المدرسة من أول لرابع قسطها 3500 شيكل شامل الكتب، ولو دفعت مباشر هتاخد خصم وتدفع 3200 ش فقط! والزي 100 ش وبدلة الرياضة 100 ش.";
+        if (q.includes('مدرسة') || q.includes('صفوف') || q.includes('قسط') || q.includes('رسوم') || q.includes('اسعار')) {
+            return "المدرسة من الصف الأول حتى الرابع قسطها 3500 شيكل سنوياً شامل الكتب المدرسية، ومع خصم الدفع المباشر يصبح 3200 شيكل فقط! والزي المدرسي 100 شيكل، وبدلة الرياضة 100 شيكل.";
         }
         if (q.includes('خصم') || q.includes('اخوة') || q.includes('اخوات')) {
-            return "عندنا خصم الدفع المباشر 3200 بدل 3500، وخصم الإخوة: اخين خصم 200 ش، 3 إخوة خصم 400 ش، و4 إخوة نص قسط كامل!";
+            return "خصوماتنا تشمل: خصم الدفع المباشر (3200 بدل 3500 شيكل)، وخصم الإخوة: طالبان خصم 200 شيكل، 3 إخوة خصم 400 شيكل، و4 إخوة خصم نصف قسط كامل!";
         }
         if (q.includes('مواصلات') || q.includes('باص') || q.includes('كفل حارس') || q.includes('ديرستيا') || q.includes('قيرة') || q.includes('زيتا') || q.includes('جماعين')) {
-            return "المواصلات: كفل حارس وديرستيا وحارس 120 شيكل (70 طريق واحد)، قيرة 140 شيكل، وزيتا وجماعين 200 شيكل ذهاباً وإياباً.";
+            return "خطوط الباصات مؤمنة ومنتظمة: كفل حارس وديرستيا وحارس 120 شيكل ذهاباً وإياباً (70 شيكل لاتجاه واحد)، قيرة 140 شيكل، وزيتا وجماعين 200 شيكل.";
+        }
+        if (q.includes('مكان') || q.includes('عنوان') || q.includes('موقع') || q.includes('فين') || q.includes('وين')) {
+            return "تقع مدرسة وروضة Roots الخاصة في بلدة كفل حارس، وتخدم أبناءنا في كافة القرى والمناطق المجاورة.";
         }
         if (q.includes('تواصل') || q.includes('تليفون') || q.includes('واتس') || q.includes('رقم')) {
-            return "تقدر تتصل بينا على 0592998887 أو تكلمنا واتساب على +972 592998887 وصفحتنا Roots private school.";
+            return "يمكنك الاتصال بنا على 0592998887 أو مراسلتنا عبر الواتساب على +972 592998887، وصفحتنا على الفيسبوك Roots private school.";
         }
-        if (q.includes('اسمك') || q.includes('مين انت')) {
-            return "أنا محمد المساعد الذكي لمدرسة وروضة Roots، تسألني عن أي حاجة تخص المدرسة أو ندردش في أي موضوع!";
+        if (q.includes('اسمك') || q.includes('مين انت') || q.includes('شخصيتك') || q.includes('محمد')) {
+            return "أنا محمد، المساعد الذكي وسفير طلاب مدرسة وروضة Roots! أسعد بمساعدتك والإجابة على أي استفسار.";
         }
-        if (q.includes('ازيك') || q.includes('عامل ايه') || q.includes('صباح') || q.includes('مساء')) {
-            return "الحمد لله كلو تمام وزي الفل! تحب تستفسر عن شروط القبول ولا الرسوم؟";
+        if (q.includes('ازيك') || q.includes('عامل ايه') || q.includes('مرحبا') || q.includes('اهلا') || q.includes('صباح') || q.includes('مساء')) {
+            return "أهلاً وسهلاً بك! يسعدني وجودك معنا في مدرسة Roots، تحب تسأل عن شروط القبول والتسجيل ولا الرسوم وخطوط الباصات؟";
         }
-        return "أهلاً بيك! أنا محمد معاك في مدرسة وروضة Roots، اسألني عن الرسوم أو خطوط المواصلات أو التسجيل وأنا أجاوبك فوراً!";
+        return "أهلاً بك! أنا محمد في مدرسة وروضة Roots، اسألني عن الرسوم، شروط التسجيل، أو خطوط المواصلات وسأجيبك فوراً!";
     }
 
-    async function getMohamedResponse(userText) {
-        appendMessage('user', userText);
-
+    async function handleChatInput(text) {
+        appendMessage('user', text);
         try {
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userText })
+                body: JSON.stringify({ message: text })
             });
             const data = await res.json();
             appendMessage('bot', data.reply);
-            speakMaleReply(data.reply);
+            speakReply(data.reply);
         } catch (error) {
-            const fallback = generateUnifiedMohamedReply(userText);
+            const fallback = generateMohamedKnowledge(text);
             appendMessage('bot', fallback);
-            speakMaleReply(fallback);
+            speakReply(fallback);
         }
     }
 
@@ -475,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sendBtn.addEventListener('click', () => {
             const val = userInput.value.trim();
             if (val) {
-                getMohamedResponse(val);
+                handleChatInput(val);
                 userInput.value = '';
             }
         });
@@ -484,33 +505,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') {
                 const val = userInput.value.trim();
                 if (val) {
-                    getMohamedResponse(val);
+                    handleChatInput(val);
                     userInput.value = '';
                 }
             }
         });
     }
 
-    // التعرف الصوتي
+    // التعرف الصوتي (Speech Recognition)
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
-        recognition.lang = 'ar-EG';
+        recognition.lang = 'ar-SA';
         recognition.continuous = false;
 
         recognition.onstart = () => {
             isListening = true;
             if (voiceBtn) voiceBtn.classList.add('listening');
-            orbContainer.classList.add('listening');
-            orbContainer.classList.remove('speaking');
-            if (voiceCaption) voiceCaption.textContent = "محمد سامعك دلوقتي.. اتفضل";
-            if (botStatus) botStatus.textContent = "بيسمعك...";
+            if (avatarImg) avatarImg.classList.add('listening-avatar');
+            if (voiceCaption) voiceCaption.textContent = "محمد يستمع إليك الآن...";
+            if (botStatus) botStatus.textContent = "يستمع...";
         };
 
         recognition.onresult = (e) => {
             const transcript = e.results[0][0].transcript;
             stopListening();
-            getMohamedResponse(transcript);
+            handleChatInput(transcript);
         };
 
         recognition.onerror = recognition.onend = () => {
@@ -539,7 +559,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopListening() {
         isListening = false;
         if (voiceBtn) voiceBtn.classList.remove('listening');
-        if (orbContainer) orbContainer.classList.remove('listening');
+        if (avatarImg) {
+            avatarImg.classList.remove('listening-avatar');
+            avatarImg.classList.remove('speaking-avatar');
+        }
         if (recognition) {
             try { recognition.stop(); } catch (err) { }
         }

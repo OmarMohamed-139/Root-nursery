@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدرسة وروضة Roots الخاصة - بوابة التسجيل والقبول</title>
+    <title>مدرسة وروضة Roots الخاصة - بوابة التميز والتعليم الذكي</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="Tap img.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -24,16 +25,18 @@
                 </div>
             </a>
             <nav class="nav-menu" id="navMenu">
-                <a href="#hero" class="nav-link active">الرئيسية</a>
+                <a href="index.html" class="nav-link active">الرئيسية</a>
                 <a href="#about" class="nav-link">من نحن</a>
-                <a href="#programs" class="nav-link">الصفوف والبرامج</a>
-                <a href="#fees" class="nav-link">الرسوم والمواصلات</a>
-                <a href="#admission" class="nav-link">التسجيل والقبول</a>
+                <a href="#videos" class="nav-link">فيديوهات تعريفية</a>
+                <a href="#testimonials" class="nav-link">آراء أولياء الأمور</a>
+                <a href="program-details.html" class="nav-link">تفاصيل البرامج</a>
+                <a href="admission.html" class="nav-link">الرسوم والتسجيل</a>
                 <a href="#contact" class="nav-link">اتصل بنا</a>
             </nav>
             <div class="nav-actions">
-                <a href="#admission" class="btn-primary contact-btn"><i class="fa-solid fa-file-signature"></i> سجل
-                    الآن</a>
+                <a href="admission.html" class="btn-primary contact-btn">
+                    <i class="fa-solid fa-file-signature"></i> سجل الآن
+                </a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -41,18 +44,17 @@
         </div>
     </header>
 
-    <!-- قسم الواجهة الرئيسية -->
+    <!-- الواجهة الرئيسية Hero -->
     <section class="hero" id="hero">
         <div class="container hero-container">
             <div class="hero-content">
-                <span class="badge-pill"><i class="fa-solid fa-graduation-cap"></i> فتح باب التسجيل والقبول للعام
-                    الدراسي</span>
+                <span class="badge-pill"><i class="fa-solid fa-seedling"></i> Strong roots, bright futures</span>
                 <h1>مدرسة وروضة Roots الخاصة</h1>
-                <p>بيئة تربوية متطورة تجمع بين التأسيس الأكاديمي المتين وتوظيف أدوات الذكاء الاصطناعي.. نرحب بأبنائنا من
-                    مرحلة التمهيدي وحتى الصف الرابع الأساسي.</p>
+                <p>بيئة نموذجية مريحة ترعى إبداع طفلك من التمهيدي وحتى الصف الرابع الأساسي، تجمع بين التأسيس المتين
+                    والتعلم الذكي.</p>
                 <div class="hero-buttons">
-                    <a href="#admission" class="btn-primary btn-large">سجل لطفلك الآن</a>
-                    <a href="#fees" class="btn-secondary btn-large">الرسوم والأقساط</a>
+                    <a href="admission.html" class="btn-primary btn-large">الرسوم والتسجيل</a>
+                    <a href="#videos" class="btn-secondary btn-large"><i class="fa-solid fa-play"></i> جولة بالفيديو</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -61,25 +63,25 @@
                     </div>
                     <div class="stat-item">
                         <h3>100%</h3>
-                        <p>تعلم ذكي وداعم</p>
+                        <p>رعاية فردية وتفاعلية</p>
                     </div>
                     <div class="stat-item">
-                        <h3>خصومات</h3>
-                        <p>دفع مباشر وإخوة</p>
+                        <h3>مؤمنة</h3>
+                        <p>مواصلات شاملة</p>
                     </div>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="image-box">
                     <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-                        alt="أطفال يتعلمون بالتكنولوجيا الحديثة">
+                        alt="بيئة مدرسية مبهجة">
                     <div class="floating-card card-1">
-                        <i class="fa-solid fa-bus text-green"></i>
-                        <span>مواصلات لكافة القرى</span>
+                        <i class="fa-solid fa-shield-heart text-green"></i>
+                        <span>بيئة دافئة وآمنة</span>
                     </div>
                     <div class="floating-card card-2">
                         <i class="fa-solid fa-award text-yellow"></i>
-                        <span>رعاية وتربية متكاملة</span>
+                        <span>مستقبل واعد ومشرق</span>
                     </div>
                 </div>
             </div>
@@ -90,359 +92,191 @@
     <section class="about section-padding" id="about">
         <div class="container">
             <div class="section-header text-center">
-                <h2>لماذا تختار Roots؟</h2>
-                <p>نجمع بين الرعاية بحب وأحدث مناهج التعلم والتعليم المدعومة بالذكاء الاصطناعي</p>
+                <h2>لماذا يفضل الأهالي Roots؟</h2>
+                <p>نعمل بحب لبناء شخصية طفلك وإطلاق طاقاته الإبداعية في كل خطوة</p>
             </div>
             <div class="about-grid">
                 <div class="about-card">
-                    <div class="icon-box bg-green-light">
-                        <i class="fa-solid fa-robot text-green"></i>
-                    </div>
-                    <h3>الذكاء الاصطناعي بالتعليم</h3>
-                    <p>برامج ذكية تفاعلية لتخصيص مسار تعليمي يناسب قدرات وذكاء كل طالب بشكل متفرد.</p>
+                    <div class="icon-box bg-green-light"><i class="fa-solid fa-brain text-green"></i></div>
+                    <h3>تعليم تفاعلي ذكي</h3>
+                    <p>استراتيجيات عصرية تدمج الذكاء الاصطناعي لتطوير مهارات كل طالب بصورة فريدة.</p>
                 </div>
                 <div class="about-card">
-                    <div class="icon-box bg-yellow-light">
-                        <i class="fa-solid fa-chalkboard-user text-yellow"></i>
-                    </div>
-                    <h3>كادر تعليمي محترف</h3>
-                    <p>فريق تربوي مؤهل لتحفيز تفكير وابتكار الأطفال وتأسيسهم أكاديمياً بقوة.</p>
+                    <div class="icon-box bg-yellow-light"><i class="fa-solid fa-chalkboard-user text-yellow"></i></div>
+                    <h3>كادر تربوي متميز</h3>
+                    <p>معلمون مخلصون وكفاءات تعليمية لتدريس اللغات والمناهج بأحدث الوسائل.</p>
                 </div>
                 <div class="about-card">
-                    <div class="icon-box bg-red-light">
-                        <i class="fa-solid fa-puzzle-piece text-red"></i>
-                    </div>
-                    <h3>بيئة آمنة وتفاعلية</h3>
-                    <p>أنشطة ومرافق حيوية تجمع بين المهارات الأكاديمية والرياضية والترفيهية الهادفة.</p>
+                    <div class="icon-box bg-red-light"><i class="fa-solid fa-palette text-red"></i></div>
+                    <h3>أنشطة ومساحات لعب</h3>
+                    <p>فناء خارجي وحدائق وألعاب مرحة تجعل تجربة التعلم مفعمة بالنشاط والحيوية.</p>
                 </div>
                 <div class="about-card">
-                    <div class="icon-box bg-blue-light">
-                        <i class="fa-solid fa-comments text-blue"></i>
-                    </div>
-                    <h3>متابعة مستمرة للأهل</h3>
-                    <p>تقارير دورية تضع ولي الأمر في قلب التطور العلمي والسلوكي لأبنائه.</p>
+                    <div class="icon-box bg-blue-light"><i class="fa-solid fa-hand-holding-heart text-blue"></i></div>
+                    <h3>رعاية وقيم أصيلة</h3>
+                    <p>غرس القيم الأخلاقية وتعزيز ثقة الطفل بنفسه في مجتمع مدرسي مترابط.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- الصفوف والبرامج -->
-    <section class="programs section-padding bg-light" id="programs">
+    <!-- قسم الفيديوهات التعريفية بتنسيق مميز -->
+    <section class="videos-section section-padding bg-light" id="videos">
         <div class="container">
             <div class="section-header text-center">
-                <h2>الصفوف والبرامج الدراسية</h2>
-                <p>مناهج معتمدة تؤسس الطفل من عمر الروضة حتى نهاية المرحلة الأساسية الأولى</p>
+                <h2>تعرف على عالم Roots بالفيديو</h2>
+                <p>شاهد طلابنا وكادرنا في جولة ملهمة داخل أروقة ومرافق مدرستنا</p>
             </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80"
-                            alt="برنامج التمهيدي">
-                        <span class="age-tag">تمهيدي KG2</span>
+            <div class="videos-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="" playsinline>
+                            <source src="rootvd (1).mp4" type="video/mp4">
+                            متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
                     </div>
-                    <div class="program-content">
-                        <h3>الروضة: تمهيدي KG2</h3>
-                        <p>تأسيس ممتاز في القراءة والحساب والألعاب التفاعلية (المواليد المطلوبة: 1/2/2021 إلى
-                            30/4/2022).</p>
-                        <ul class="program-features">
-                            <li><i class="fa-solid fa-check"></i> القسط: 150 شيكل شهرياً</li>
-                            <li><i class="fa-solid fa-check"></i> الكتب + بلوزتين: 100 شيكل</li>
-                            <li><i class="fa-solid fa-check"></i> تنمية المهارات اللغوية والاجتماعية</li>
-                        </ul>
-                        <a href="#admission" class="btn-primary btn-block program-link-btn">سجل لطفلك بالروضة</a>
+                    <div class="video-info">
+                        <h3><i class="fa-solid fa-sparkles text-yellow"></i> لماذا سميت مدرستنا Roots؟</h3>
+                        <p>لأن المستقبل القوي يبدأ من جذور قوية.. رسالتنا وأهدافنا من أجل أطفالنا.</p>
                     </div>
                 </div>
 
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80"
-                            alt="المرحلة الأساسية الأولى">
-                        <span class="age-tag">الصف 1 & 2</span>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="" playsinline>
+                            <source src="rootvd (2).mp4" type="video/mp4">
+                            متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
                     </div>
-                    <div class="program-content">
-                        <h3>المدرسة: الصف الأول والثاني</h3>
-                        <p>إتقان القراءة والكتابة، العمليات الحسابية، وتطوير التفكير المنطقي واللغات.</p>
-                        <ul class="program-features">
-                            <li><i class="fa-solid fa-check"></i> القسط: 3500 شيكل شامل الكتب</li>
-                            <li><i class="fa-solid fa-check"></i> خصم الدفع المباشر: 3200 شيكل</li>
-                            <li><i class="fa-solid fa-check"></i> خصومات خاصة للإخوة</li>
-                        </ul>
-                        <a href="#admission" class="btn-primary btn-block program-link-btn">سجل في الصف 1 أو 2</a>
-                    </div>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=600&q=80"
-                            alt="المرحلة الأساسية الثانية">
-                        <span class="age-tag">الصف 3 & 4</span>
-                    </div>
-                    <div class="program-content">
-                        <h3>المدرسة: الصف الثالث والرابع</h3>
-                        <p>تطوير مهارات البحث والتقنية، المناهج العلمية المتقدمة والأنشطة اللامنهجية.</p>
-                        <ul class="program-features">
-                            <li><i class="fa-solid fa-check"></i> بيئة محفزة بالذكاء الاصطناعي</li>
-                            <li><i class="fa-solid fa-check"></i> خطوط باصات منتظمة ومؤمنة</li>
-                            <li><i class="fa-solid fa-check"></i> متابعة فردية لكل طالب</li>
-                        </ul>
-                        <a href="#admission" class="btn-primary btn-block program-link-btn">سجل في الصف 3 أو 4</a>
+                    <div class="video-info">
+                        <h3><i class="fa-solid fa-door-open text-green"></i> جولة داخل الصفوف والحديقة</h3>
+                        <p>تعرف على الفصول الحديثة، كادر اللغة الإنجليزية، ومساحات اللعب والمرح الخارجية.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- الرسوم والمواصلات -->
-    <section class="fees-section section-padding" id="fees">
+    <!-- قسم آراء وتقييمات أولياء الأمور -->
+    <section class="testimonials section-padding" id="testimonials">
         <div class="container">
             <div class="section-header text-center">
-                <h2>جدول الرسوم والمواصلات والخصومات</h2>
-                <p>جميع تفاصيل التكاليف معلنة بوضوح لتسهيل التخطيط لولي الأمر</p>
+                <h2>ماذا يقول أولياء الأمور عنا؟</h2>
+                <p>فخورون بثقة عائلاتنا وشراكتنا المستمرة في بناء مستقبل مشرق لأبنائهم</p>
             </div>
-
-            <div class="fees-grid">
-                <div class="fee-card">
-                    <div class="fee-badge">الروضة</div>
-                    <h3>تمهيدي KG2</h3>
-                    <div class="fee-price">150 <span>شيكل / شهرياً</span></div>
-                    <ul class="fee-list">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> القسط الشهري لا يشمل غير القسط.</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> الكتب + بلوزتين: <strong>100
-                                شيكل</strong>.</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> المواليد: 1/2/2021 إلى 30/4/2022.</li>
-                    </ul>
-                </div>
-
-                <div class="fee-card featured-card">
-                    <div class="fee-badge popular">المدرسة (1 - 4)</div>
-                    <h3>صفوف المدرسة كافة</h3>
-                    <div class="fee-price">3500 <span>شيكل / سنوياً</span></div>
-                    <ul class="fee-list">
-                        <li><i class="fa-solid fa-circle-check text-green"></i> القسط شامل فقط الكتب المدرسية.</li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> الزي المدرسي: <strong>100 شيكل</strong>.
-                        </li>
-                        <li><i class="fa-solid fa-circle-check text-green"></i> بدلة الرياضة: <strong>100 شيكل</strong>.
-                        </li>
-                        <li><i class="fa-solid fa-bolt text-yellow"></i> <strong>خصم الدفع المباشر:</strong> 3200 شيكل
-                            بدل 3500.</li>
-                    </ul>
-                </div>
-
-                <div class="fee-card">
-                    <div class="fee-badge">المواصلات</div>
-                    <h3>خطوط الباصات</h3>
-                    <div class="fee-price">مؤمنة <span>ذهاباً وإياباً</span></div>
-                    <ul class="fee-list">
-                        <li><i class="fa-solid fa-bus text-green"></i> <strong>كفل حارس / ديرستيا / حارس:</strong> 120
-                            شيكل (70 ش طريق واحد).</li>
-                        <li><i class="fa-solid fa-bus text-green"></i> <strong>قيرة:</strong> 140 شيكل ذهاباً وإياباً.
-                        </li>
-                        <li><i class="fa-solid fa-bus text-green"></i> <strong>زيتا / جماعين:</strong> 200 شيكل ذهاباً
-                            وإياباً.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="discount-box">
-                <div class="discount-header">
-                    <i class="fa-solid fa-tags"></i>
-                    <h3>باقات خصومات الإخوة والدفع</h3>
-                </div>
-                <div class="discount-items-grid">
-                    <div class="disc-item">
-                        <h4>الدفع المباشر</h4>
-                        <p><strong>3200 شيكل</strong> بدل 3500 شيكل عند السداد المباشر.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
                     </div>
-                    <div class="disc-item">
-                        <h4>طالبين (2 إخوة)</h4>
-                        <p>خصم <strong>200 شيكل</strong> على قسط واحد.</p>
+                    <p class="testi-text">"التطور الملحوظ في ثقة ابني ونطقه للغة الإنجليزية خلال شهور قليلة كان مبهراً!
+                        بيئة دافئة تشعرك أن طفلك بين أيدٍ أمينة بالفعل."</p>
+                    <div class="testi-author">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h4>أم يوسف</h4>
+                            <span>ولي أمر - الصف الأول</span>
+                        </div>
                     </div>
-                    <div class="disc-item">
-                        <h4>3 إخوة</h4>
-                        <p>خصم <strong>400 شيكل</strong> على قسط واحد.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
                     </div>
-                    <div class="disc-item">
-                        <h4>4 إخوة</h4>
-                        <p>خصم <strong>نصف قسط كامل</strong> لأحد الطلاب.</p>
+                    <p class="testi-text">"الاهتمام بالمتابعة الدورية والنظافة والأنشطة اللامنهجية في روضة Roots جعلت
+                        ابنتي تستيقظ بحماس كل صباح للذهاب للمدرسة."</p>
+                    <div class="testi-author">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h4>أبو كريم</h4>
+                            <span>ولي أمر - تمهيدي KG2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testi-text">"المعلمات متعاونات جداً وإدارة المدرسة متفانية. خطوط المواصلات آمنة ومواعيدها
+                        دقيقة، وهذا وفر علينا راحة بال كبيرة."</p>
+                    <div class="testi-author">
+                        <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <h4>أم سارة</h4>
+                            <span>ولي أمر - الصف الثالث</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- قسم التسجيل والقبول -->
-    <section class="admission section-padding bg-light" id="admission">
+    <!-- معرض صور مريح للحياة المدرسية -->
+    <section class="gallery section-padding bg-light" id="gallery">
         <div class="container">
             <div class="section-header text-center">
-                <h2>استمارة التسجيل والقبول</h2>
-                <p>يرجى قراءة الشروط والوثائق ثم ملء النموذج الإلكتروني لحجز المقعد</p>
+                <h2>أجواء تفيض بالحيوية والمرح</h2>
+                <p>صور تعكس سعادة أطفالنا وتفاعلهم في بيئة تعليمية ملهمة</p>
             </div>
-
-            <div class="admission-info-grid">
-                <div class="admission-card">
-                    <div class="card-icon"><i class="fa-solid fa-clipboard-check"></i></div>
-                    <h3>شروط وخطوات التسجيل</h3>
-                    <ul>
-                        <li><i class="fa-solid fa-check text-green"></i> <strong>التمهيدي KG2:</strong> مواليد من
-                            1/2/2021 حتى 30/4/2022.</li>
-                        <li><i class="fa-solid fa-check text-green"></i> <strong>المدرسة:</strong> القبول من الصف الأول
-                            حتى الرابع.</li>
-                        <li><i class="fa-solid fa-check text-green"></i> دفع تكلفة حجز المقعد لتثبيت القبول في المدرسة.
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="admission-card">
-                    <div class="card-icon"><i class="fa-solid fa-folder-open"></i></div>
-                    <h3>الوثائق المطلوبة عند الحضور</h3>
-                    <ul>
-                        <li><i class="fa-solid fa-id-card text-green"></i> صورة هوية ولي الأمر.</li>
-                        <li><i class="fa-solid fa-certificate text-green"></i> شهادة ميلاد الطالب الأصلية أو مصدقة.</li>
-                        <li><i class="fa-solid fa-image text-green"></i> صورة شخصية حديثة للطالب.</li>
-                        <li><i class="fa-solid fa-file-signature text-green"></i> ملف نقل الطالب (إذا كان مسجلاً بمدرسة
-                            سابقة من الصف 2 فما فوق).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- استمارة التسجيل -->
-            <div class="registration-form-wrap">
-                <div class="form-title-head">
-                    <i class="fa-solid fa-user-pen"></i>
-                    <div>
-                        <h3>تقديم طلب تسجيل جديد</h3>
-                        <p>يتم تخزين بياناتكم فورياً وبأمان في سجلات المدرسة لترتيب المقاعد</p>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
+                        alt="قراءة وتفاعل">
+                    <div class="gallery-overlay">
+                        <h4>شغف الاستكشاف والتعلم</h4>
                     </div>
                 </div>
-
-                <form id="registrationForm" class="styled-registration-form" novalidate>
-                    <!-- بيانات ولي الأمر -->
-                    <div class="form-section-title">
-                        <i class="fa-solid fa-user-shield"></i> أولاً: بيانات ولي الأمر
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=80"
+                        alt="ابتسامة">
+                    <div class="gallery-overlay">
+                        <h4>ابتسامة كل صباح</h4>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="parentName">اسم ولي الأمر رباعي <span class="req">*</span></label>
-                            <input type="text" id="parentName" required placeholder="حروف عربية فقط"
-                                autocomplete="name">
-                            <small class="field-hint">يُسمح بكتابة الحروف العربية والمسافات فقط (ثلاثي على
-                                الأقل)</small>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="parentId">رقم هوية ولي الأمر <span class="req">*</span></label>
-                            <input type="text" id="parentId" required placeholder="9 أرقام" maxlength="9"
-                                inputmode="numeric">
-                            <small class="field-hint">أرقام فقط (9 أرقام بالضبط)</small>
-                        </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80"
+                        alt="صفوف دراسية">
+                    <div class="gallery-overlay">
+                        <h4>فصول نموذجية مجهزة</h4>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="parentPhone">رقم هاتف الاتصال <span class="req">*</span></label>
-                            <input type="tel" id="parentPhone" required placeholder="059XXXXXXX" maxlength="10"
-                                inputmode="tel">
-                            <small class="field-hint">أرقام فقط تبدأ بـ 059</small>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="parentWhatsapp">رقم الواتساب <span class="req">*</span></label>
-                            <input type="tel" id="parentWhatsapp" required placeholder="+97259XXXXXXX أو 059XXXXXXX"
-                                maxlength="15" inputmode="tel">
-                            <small class="field-hint">أرقام فقط (يُسمح برمز + فقط في البداية)</small>
-                        </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80"
+                        alt="أنشطة">
+                    <div class="gallery-overlay">
+                        <h4>إبداع لا يتوقف</h4>
                     </div>
-
-                    <!-- بيانات الطالب -->
-                    <div class="form-section-title mt-20">
-                        <i class="fa-solid fa-child"></i> ثانياً: بيانات الطالب
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=600&q=80"
+                        alt="تعاون">
+                    <div class="gallery-overlay">
+                        <h4>روح الفريق الواحد</h4>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="studentName">اسم الطالب رباعي <span class="req">*</span></label>
-                            <input type="text" id="studentName" required placeholder="حروف عربية فقط">
-                            <small class="field-hint">يُسمح بكتابة الحروف العربية والمسافات فقط</small>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="studentDob">تاريخ ميلاد الطالب <span class="req">*</span></label>
-                            <input type="date" id="studentDob" required>
-                            <small class="field-hint" id="dobHint">اختر تاريخ الميلاد بدقة</small>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="gradeApply">الصف / المرحلة المطلوبة <span class="req">*</span></label>
-                            <select id="gradeApply" required>
-                                <option value="" disabled selected>-- اختر الصف المطلوب --</option>
-                                <option value="تمهيدي KG2">الروضة: تمهيدي KG2 (مواليد 1/2/2021 إلى 30/4/2022)</option>
-                                <option value="الصف الأول">المدرسة: الصف الأول الأساسي</option>
-                                <option value="الصف الثاني">المدرسة: الصف الثاني الأساسي</option>
-                                <option value="الصف الثالث">المدرسة: الصف الثالث الأساسي</option>
-                                <option value="الصف الرابع">المدرسة: الصف الرابع الأساسي</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="hasTransferFile">ملف نقل الطالب (من صف 2 فما فوق) <span
-                                    class="req">*</span></label>
-                            <select id="hasTransferFile" required>
-                                <option value="طالب جديد (روضة / صف أول)">طالب جديد (روضة أو صف أول)</option>
-                                <option value="متوفر وجاهز للإحضار">نعم - ملف النقل متوفر وجاهز للإحضار</option>
-                                <option value="قيد الاستخراج من المدرسة السابقة">نعم - ملف النقل قيد الاستخراج حالياً
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- المواصلات والخصومات -->
-                    <div class="form-section-title mt-20">
-                        <i class="fa-solid fa-bus-simple"></i> ثالثاً: المواصلات والخصومات
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="transportLocation">خدمة الباص والمواصلات</label>
-                            <select id="transportLocation">
-                                <option value="توصيل خاص (بدون باص)">توصيل خاص (بدون باص)</option>
-                                <option value="كفل حارس / ديرستيا / حارس (120 شيكل ذهاب وإياب)">كفل حارس / ديرستيا /
-                                    حارس (120 شيكل ذهاباً وإياباً)</option>
-                                <option value="كفل حارس / ديرستيا / حارس (70 شيكل طريق واحد)">كفل حارس / ديرستيا / حارس
-                                    (70 شيكل طريق واحد فقط)</option>
-                                <option value="قيرة (140 شيكل ذهاب وإياب)">قيرة (140 شيكل ذهاباً وإياباً)</option>
-                                <option value="زيتا / جماعين (200 شيكل ذهاب وإياب)">زيتا / جماعين (200 شيكل ذهاباً
-                                    وإياباً)</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="siblingsCount">عدد الإخوة المسجلين بالمدرسة (لتطبيق الخصم)</label>
-                            <select id="siblingsCount">
-                                <option value="طالب واحد فقط">طالب واحد فقط (لا يوجد إخوة)</option>
-                                <option value="2 إخوة (خصم 200 ش على قسط واحد)">2 إخوة (خصم 200 ش على قسط واحد)</option>
-                                <option value="3 إخوة (خصم 400 ش على قسط واحد)">3 إخوة (خصم 400 ش على قسط واحد)</option>
-                                <option value="4 إخوة (خصم نصف قسط واحد)">4 إخوة (خصم نصف قسط كامل)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-actions-flex">
-                        <button type="submit" class="btn-primary btn-large" id="submitRegBtn">
-                            <i class="fa-solid fa-check-circle"></i> تثبيت وإرسال طلب التسجيل
-                        </button>
-                        <button type="button" id="exportDataBtn" class="btn-secondary">
-                            <i class="fa-solid fa-file-excel"></i> تنزيل سجل المسجلين (Excel/CSV)
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- تواصل معنا (تم حذف خانة إضافة رسالة وجعل القسم مخصصاً لبيانات التواصل) -->
+    <!-- تواصل معنا -->
     <section class="contact section-padding" id="contact">
         <div class="container">
             <div class="section-header text-center">
-                <h2>معلومات التواصل والموقع</h2>
-                <p>يسعدنا استقبال اتصالاتكم وزيارتكم في أي وقت خلال أوقات الدوام الرسمي</p>
+                <h2>تواصل معنا ويسعدنا لقاؤكم</h2>
+                <p>أبوابنا مفتوحة لاستقبال استفساراتكم وزيارتكم في أي وقت</p>
             </div>
             <div class="contact-center-card">
                 <div class="contact-info full-width-info">
                     <h3>مدرسة وروضة Roots الخاصة</h3>
-                    <p>أبوابنا مفتوحة لخدمتكم والإجابة على أي استفسارات تتعلق بالتسجيل ومستقبل أبنائكم.</p>
+                    <p>كفل حارس والمناطق المجاورة - نرحب بكم دوماً</p>
                     <ul class="info-list info-grid-list">
                         <li>
                             <i class="fa-solid fa-phone"></i>
@@ -454,7 +288,7 @@
                         <li>
                             <i class="fa-brands fa-whatsapp"></i>
                             <div>
-                                <strong>رقم الواتساب:</strong>
+                                <strong>الواتساب:</strong>
                                 <span><a href="https://wa.me/972592998887" target="_blank">+972 592998887</a></span>
                             </div>
                         </li>
@@ -475,14 +309,6 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="social-links-center">
-                        <a href="https://www.facebook.com/search/top?q=Roots%20private%20school" target="_blank"
-                            aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/explore/tags/rootsprivateschool/" target="_blank"
-                            aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://wa.me/972592998887" target="_blank" aria-label="WhatsApp"><i
-                                class="fa-brands fa-whatsapp"></i></a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -495,16 +321,16 @@
                 <div class="logo-wrapper footer-logo">
                     <img src="roots logo.png" alt="Roots Logo" class="logo-img">
                 </div>
-                <p>مدرسة وروضة Roots الخاصة، خطوتكم الأولى لجذور قوية وتعليم متقدم مستند للذكاء الاصطناعي.</p>
+                <p>مدرسة وروضة Roots الخاصة.. جذور قوية لمستقبل واعد ومشرق.</p>
             </div>
             <div class="footer-col">
                 <h3>روابط سريعة</h3>
                 <ul>
-                    <li><a href="#hero">الرئيسية</a></li>
-                    <li><a href="#about">من نحن</a></li>
-                    <li><a href="#programs">الصفوف والبرامج</a></li>
-                    <li><a href="#fees">الرسوم والأقساط</a></li>
-                    <li><a href="#admission">التسجيل والقبول</a></li>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="#videos">الفيديوهات التعريفية</a></li>
+                    <li><a href="#testimonials">آراء أولياء الأمور</a></li>
+                    <li><a href="program-details.html">تفاصيل البرامج</a></li>
+                    <li><a href="admission.html">الرسوم والتسجيل</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -517,7 +343,7 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>تابعنا على السوشيال ميديا</h3>
+                <h3>تابعنا</h3>
                 <p>Roots private school</p>
                 <div class="social-links footer-social">
                     <a href="https://www.facebook.com/search/top?q=Roots%20private%20school" target="_blank"
@@ -539,39 +365,29 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- نافذة تأكيد الإرسال المنبثقة في منتصف الصفحة (Center Modal) -->
-    <div class="modal-overlay" id="confirmModal">
-        <div class="modal-card">
-            <div class="modal-icon-wrap">
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <h3 id="modalTitle">تم حفظ طلب التسجيل بنجاح!</h3>
-            <p id="modalDesc">تمت إضافة بيانات الطالب بنجاح إلى سجلات المدرسة المعتمدة.</p>
-            <div class="modal-actions">
-                <button type="button" class="btn-primary" id="modalWaBtn">
-                    <i class="fa-brands fa-whatsapp"></i> إرسال تأكيد للإدارة عبر الواتساب
-                </button>
-                <button type="button" class="btn-secondary" id="modalCloseBtn">
-                    إغلاق
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- رسائل التنبيهات المنبثقة (Toast) -->
-    <div class="success-toast" id="successToast">
-        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
-        <span id="toastMsg">تم تسجيل البيانات بنجاح!</span>
-    </div>
-
-    <!-- المساعد الصوتي محمد -->
+    <!-- المساعد الذكي محمد (أفاتار شخصية الولد) -->
     <div id="chat-widget-container">
         <button id="chat-toggle-btn" aria-label="تحدث مع محمد">
-            <span>دردش مع محمد</span>
-            <div class="voice-pulse-circle">
-                <i class="fa-solid fa-microphone-lines"></i>
-                <div class="pulse-ring"></div>
+            <div class="boy-avatar-mini">
+                <!-- صورة تمثيلية لأفاتار الولد الكرتوني من الفيديو -->
+                <svg viewBox="0 0 100 100" class="boy-svg">
+                    <circle cx="50" cy="50" r="48" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3" />
+                    <circle cx="50" cy="48" r="28" fill="#ffd1b3" />
+                    <!-- شعر كيرلي لطيف -->
+                    <path d="M 22,42 C 20,20 40,14 50,14 C 65,14 80,20 78,42 C 70,30 65,30 50,30 C 35,30 30,35 22,42 Z"
+                        fill="#2d1d14" />
+                    <!-- عيون لطيفة -->
+                    <circle cx="41" cy="45" r="4" fill="#2d1d14" />
+                    <circle cx="59" cy="45" r="4" fill="#2d1d14" />
+                    <!-- ابتسامة -->
+                    <path d="M 43,58 Q 50,66 57,58" stroke="#d35400" stroke-width="3" fill="none"
+                        stroke-linecap="round" />
+                    <!-- ربطة عنق وزي رسمي -->
+                    <path d="M 36,75 L 64,75 L 58,95 L 42,95 Z" fill="#4a5568" />
+                    <polygon points="50,75 53,84 47,84" fill="#2e7d32" />
+                </svg>
             </div>
+            <span>اسأل محمد الذكي</span>
         </button>
 
         <div id="chat-box" class="chat-hidden">
@@ -579,36 +395,45 @@
                 <div class="header-info">
                     <div class="live-indicator"></div>
                     <div>
-                        <h4>محمد (المساعد الصوتي)</h4>
-                        <span class="bot-status" id="botStatus">متصل ومستعد للكلام</span>
+                        <h4>محمد - سفير طلاب Roots</h4>
+                        <span class="bot-status" id="botStatus">متصل ومستعد للمساعدة</span>
                     </div>
                 </div>
                 <button id="close-chat" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div class="voice-avatar-stage">
-                <div class="orb-container" id="orbContainer">
-                    <div class="wave wave-1"></div>
-                    <div class="wave wave-2"></div>
-                    <div class="wave wave-3"></div>
-                    <div class="orb-core" id="orbCore">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
+            <div class="boy-avatar-stage">
+                <div class="boy-character-circle" id="chatAvatarImg">
+                    <svg viewBox="0 0 100 100" class="boy-svg-large">
+                        <circle cx="50" cy="50" r="48" fill="#ffffff" stroke="#4caf50" stroke-width="3" />
+                        <circle cx="50" cy="48" r="30" fill="#ffd1b3" />
+                        <path
+                            d="M 20,44 C 18,18 40,12 50,12 C 68,12 82,18 80,44 C 70,30 65,30 50,30 C 35,30 30,35 20,44 Z"
+                            fill="#2d1d14" />
+                        <circle cx="40" cy="46" r="4.5" fill="#2d1d14" />
+                        <circle cx="60" cy="46" r="4.5" fill="#2d1d14" />
+                        <circle cx="42" cy="44" r="1.5" fill="#ffffff" />
+                        <circle cx="62" cy="44" r="1.5" fill="#ffffff" />
+                        <path d="M 43,60 Q 50,68 57,60" stroke="#d35400" stroke-width="3.5" fill="none"
+                            stroke-linecap="round" />
+                        <path d="M 33,76 L 67,76 L 60,98 L 40,98 Z" fill="#4a5568" />
+                        <polygon points="50,76 54,86 46,86" fill="#2e7d32" />
+                    </svg>
                 </div>
-                <div class="voice-caption" id="voiceCaption">اسألني عن الرسوم أو التسجيل أو دردش معايا!</div>
+                <div class="voice-caption" id="voiceCaption">أهلاً بك! أنا محمد، اسألني عن أي شيء يخص مدرستنا</div>
             </div>
 
             <div class="chat-messages" id="chatMessages">
                 <div class="message-row bot-row">
                     <div class="message bot-message">
-                        أهلاً بحضرتك! أنا <strong>محمد</strong>، تقدر تسألني بصوتك أو كتابة عن رسوم مدرسة وروضة Roots،
-                        الأقساط، شروط القبول، أو خطوط المواصلات.
+                        مرحباً بك في مدرسة وروضة Roots! 🌟 أنا <strong>محمد</strong>، تلميذ ومساعد في المدرسة. يسعدني أن
+                        أجيبك عن الرسوم، التسجيل، شروط القبول، أو خطوط الباصات.
                     </div>
                 </div>
             </div>
 
             <div class="chat-input-area">
-                <input type="text" id="user-input" placeholder="اكتب أو اتكلم بالمايك..." autocomplete="off">
+                <input type="text" id="user-input" placeholder="اكتب سؤالك هنا..." autocomplete="off">
                 <button id="voice-btn" class="main-mic-action" title="تحدث بصوتك">
                     <i class="fa-solid fa-microphone"></i>
                 </button>

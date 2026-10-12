@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">تفاصيل البرنامج - حضانة Roots</title>
+    <title>تفاصيل البرامج التعليمية - مدرسة وروضة Roots</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="Tap img.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="program-details.css">
 </head>
 
 <body>
@@ -24,14 +25,14 @@
                 </div>
             </a>
             <nav class="nav-menu" id="navMenu">
-                <a href="index.html#hero" class="nav-link">الرئيسية</a>
+                <a href="index.html" class="nav-link">الرئيسية</a>
                 <a href="index.html#about" class="nav-link">من نحن</a>
-                <a href="index.html#programs" class="nav-link active">البرامج</a>
-                <a href="index.html#activities" class="nav-link">الأنشطة</a>
+                <a href="program-details.html" class="nav-link active">تفاصيل البرامج</a>
+                <a href="admission.html" class="nav-link">الرسوم والتسجيل</a>
                 <a href="index.html#contact" class="nav-link">اتصل بنا</a>
             </nav>
             <div class="nav-actions">
-                <a href="index.html#contact" class="btn-primary contact-btn">تواصل معنا</a>
+                <a href="admission.html" class="btn-primary contact-btn">سجل الآن</a>
                 <button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -39,41 +40,176 @@
         </div>
     </header>
 
-    <!-- قسم تفاصيل البرنامج -->
+    <!-- عنوان الصفحة والبانر -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1>البرامج والمسارات التعليمية</h1>
+            <p>تعرف بالتفصيل على ما يتعلمه طفلك في كل مرحلة من مراحل Roots التعليمية</p>
+        </div>
+    </section>
+
+    <!-- قسم تفاصيل البرامج الرئيسي -->
     <section class="program-details-section section-padding">
         <div class="container">
-            <div class="back-nav">
-                <a href="index.html#programs" class="back-btn"><i class="fa-solid fa-arrow-right"></i> العودة للبرامج والفلترة</a>
-            </div>
 
-            <div class="program-detail-container" id="programDetailContent">
-                <div class="program-hero-info">
-                    <span class="age-tag-detail" id="progAge">الفئة العمرية</span>
-                    <h1 id="progTitle">عنوان البرنامج التعليمي</h1>
-                    <p id="progDesc">وصف تفصيلي للبرنامج التعليمي وأهدافه الاستراتيجية وتنمية مهارات الأطفال.</p>
+            <!-- البرنامج الأول: التمهيدي KG2 -->
+            <div class="program-detail-card" id="kg2">
+                <div class="program-card-header">
+                    <div>
+                        <span class="age-badge">مواليد 1/2/2021 إلى 30/4/2022</span>
+                        <h2>مرحلة الروضة والتمهيدي (KG2)</h2>
+                    </div>
+                    <a href="admission.html" class="btn-primary">التسجيل بالتمهيدي</a>
                 </div>
-
                 <div class="program-body-grid">
                     <div class="program-main-text">
-                        <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف البرنامج التعليمية</h3>
-                        <p id="progGoals">هنا يمكنك كتابة تفاصيل إضافية عن ما يتعلمه الطفل في هذا البرنامج، المناهج التفاعلية، والأنشطة اليومية المدعومة بالذكاء الاصطناعي.</p>
+                        <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف المرحلة</h3>
+                        <p>تهدف مرحلة KG2 إلى الانتقال السلس للطفل من الجو المنزلي إلى بيئة التعليم المنظم، مع التركيز
+                            على صقل المهارات الحركية والتفاعل التواصلي، وبناء حصيلة لغوية مميزة عبر القصص واللعب.</p>
 
-                        <h3 class="mt-30"><i class="fa-solid fa-list-check text-green"></i> محتوى الكورسات والوحدات التعليمية</h3>
-                        <p class="section-subtext">قائمة محتوى الكورس المجدولة لهذا البرنامج والتي يمكنك تعديلها أو إضافتها مستقبلاً:</p>
-
-                        <!-- قوائم محتوى الكورسات التي سيتم تعبئتها ديناميكياً -->
-                        <div class="course-modules-list" id="progCoursesList">
-                            <!-- سيتم حقن المحتوى ديناميكياً عبر script.js -->
+                        <h3 class="mt-30"><i class="fa-solid fa-book-open text-green"></i> محتوى المسارات</h3>
+                        <div class="course-modules-list">
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-pen-nib"></i> التأسيس اللغوي (عربي وإنجليزي)</h4>
+                                    <span class="module-badge">تفاعلي</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> التعرف على الحروف وأصواتها عبر الأناشيد
+                                        والحركات.</li>
+                                    <li><i class="fa-solid fa-check"></i> كتابة الحروف والكلمات البسيطة وربط الصورة
+                                        بالمعنى.</li>
+                                </ul>
+                            </div>
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-calculator"></i> المفاهيم الرياضية والمنطق</h4>
+                                    <span class="module-badge">تطبيقي</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> الأعداد من 1 إلى 20، المقارنات (أكبر/أصغر،
+                                        أطول/أقصر).</li>
+                                    <li><i class="fa-solid fa-check"></i> الأشكال الهندسية الأساسية وتصنيف المجسمات.
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-
                     <div class="program-sidebar-box">
-                        <h3>هل أنت مستعد لتسجيل طفلك؟</h3>
-                        <p>تواصل معنا الآن لمعرفة التفاصيل الكاملة والمقاعد المتاحة لهذا البرنامج.</p>
-                        <a href="index.html#contact" class="btn-primary btn-block">احجز استفسارك الآن</a>
+                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=500&q=80"
+                            alt="تمهيدي KG2" class="side-img">
+                        <h4>معلومات القبول السريعة:</h4>
+                        <p><strong>القسط الشهري:</strong> 150 شيكل</p>
+                        <p><strong>الكتب وبلوزتين:</strong> 100 شيكل</p>
                     </div>
                 </div>
             </div>
+
+            <!-- البرنامج الثاني: الصف 1 و 2 -->
+            <div class="program-detail-card mt-50" id="primary1">
+                <div class="program-card-header">
+                    <div>
+                        <span class="age-badge">المرحلة الأساسية الأولى</span>
+                        <h2>المدرسة: الصف الأول والثاني الأساسي</h2>
+                    </div>
+                    <a href="admission.html" class="btn-primary">التسجيل بالصف 1 أو 2</a>
+                </div>
+                <div class="program-body-grid">
+                    <div class="program-main-text">
+                        <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف المرحلة</h3>
+                        <p>الانتقال إلى المنهج الدراسي الرسمي بتمكين كامل من مهارات القراءة والكتابة الطليقة، والعمليات
+                            الحسابية، مع دمج التقنيات الذكية لتعزيز الاستيعاب السريع والشغف العلمي.</p>
+
+                        <h3 class="mt-30"><i class="fa-solid fa-book-open text-green"></i> محتوى المسارات</h3>
+                        <div class="course-modules-list">
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-book"></i> المهارات اللغوية والأدبية</h4>
+                                    <span class="module-badge">أساسي</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> إتقان الإملاء والتعبير الكتابي والقراءة
+                                        الاستيعابية.</li>
+                                    <li><i class="fa-solid fa-check"></i> أساسيات اللغة الإنجليزية ومحادثات الحياة
+                                        اليومية.</li>
+                                </ul>
+                            </div>
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-atom"></i> الرياضيات والعلوم التطبيقية</h4>
+                                    <span class="module-badge">تفاعلي</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> الجمع، الطرح، مبادئ الضرب، وحل المسائل
+                                        اللفظية.</li>
+                                    <li><i class="fa-solid fa-check"></i> استكشاف الطبيعة، الكائنات الحية، والتجارب
+                                        المعملية المبسطة.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-sidebar-box">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80"
+                            alt="الصف 1 و 2" class="side-img">
+                        <h4>معلومات القبول السريعة:</h4>
+                        <p><strong>القسط السنوي:</strong> 3500 شيكل (شامل الكتب)</p>
+                        <p><strong>خصم السداد المباشر:</strong> 3200 شيكل</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- البرنامج الثالث: الصف 3 و 4 -->
+            <div class="program-detail-card mt-50" id="primary2">
+                <div class="program-card-header">
+                    <div>
+                        <span class="age-badge">المرحلة الأساسية الثانية</span>
+                        <h2>المدرسة: الصف الثالث والرابع الأساسي</h2>
+                    </div>
+                    <a href="admission.html" class="btn-primary">التسجيل بالصف 3 أو 4</a>
+                </div>
+                <div class="program-body-grid">
+                    <div class="program-main-text">
+                        <h3><i class="fa-solid fa-bullseye text-green"></i> أهداف المرحلة</h3>
+                        <p>إعداد الطالب لمرحلة التفكير المستقل والبحث الذاتي، مع التركيز على مهارات التفكير المنطقي،
+                            التحدث أمام الجمهور، وحل المشكلات الحياتية بأسلوب علمي.</p>
+
+                        <h3 class="mt-30"><i class="fa-solid fa-book-open text-green"></i> محتوى المسارات</h3>
+                        <div class="course-modules-list">
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-laptop-code"></i> مهارات التكنولوجيا والذكاء الاصطناعي
+                                    </h4>
+                                    <span class="module-badge">متقدم</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> مقدمة في التفكير البرمجي واستخدام الأدوات
+                                        التقنية.</li>
+                                    <li><i class="fa-solid fa-check"></i> عروض تقديمية ومشاريع بحثية جماعية.</li>
+                                </ul>
+                            </div>
+                            <div class="course-module-card">
+                                <div class="module-header">
+                                    <h4><i class="fa-solid fa-graduation-cap"></i> تعزيز التميز الأكاديمي</h4>
+                                    <span class="module-badge">أساسي</span>
+                                </div>
+                                <ul class="module-topics">
+                                    <li><i class="fa-solid fa-check"></i> مناهج متقدمة في الرياضيات والعلوم واللغات.
+                                    </li>
+                                    <li><i class="fa-solid fa-check"></i> مسابقات تحفيزية وأنشطة لامنهجية متواصلة.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-sidebar-box">
+                        <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=500&q=80"
+                            alt="الصف 3 و 4" class="side-img">
+                        <h4>معلومات القبول السريعة:</h4>
+                        <p><strong>القسط السنوي:</strong> 3500 شيكل (شامل الكتب)</p>
+                        <p><strong>خصم السداد المباشر:</strong> 3200 شيكل</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -84,99 +220,48 @@
                 <div class="logo-wrapper footer-logo">
                     <img src="roots logo.png" alt="Roots Logo" class="logo-img">
                 </div>
-                <p>حضانة Roots هي خيارك الأول لتأسيس طفلك باستخدام أحدث تقنيات التعلم الذكي والذكاء الاصطناعي.</p>
+                <p>مدرسة وروضة Roots الخاصة، خطوتكم الأولى لجذور قوية وتعليم متقدم مستند للذكاء الاصطناعي.</p>
             </div>
             <div class="footer-col">
                 <h3>روابط سريعة</h3>
                 <ul>
-                    <li><a href="index.html#hero">الرئيسية</a></li>
-                    <li><a href="index.html#about">من نحن</a></li>
-                    <li><a href="index.html#programs">البرامج</a></li>
-                    <li><a href="index.html#activities">الأنشطة</a></li>
-                    <li><a href="index.html#contact">اتصل بنا</a></li>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="program-details.html">تفاصيل البرامج</a></li>
+                    <li><a href="admission.html">الرسوم والمواصلات</a></li>
+                    <li><a href="admission.html#registrationForm">طلب التسجيل الإلكتروني</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>برامجنا</h3>
+                <h3>تواصل معنا</h3>
                 <ul>
-                    <li><a href="program-details.html?program=toddlers">الحضانات الصغرى (Toddlers)</a></li>
-                    <li><a href="program-details.html?program=preschool">ما قبل التمهيدي (Pre-School)</a></li>
-                    <li><a href="program-details.html?program=kindergarten">الروضة وتأهيل المدرسة (Kindergarten)</a></li>
+                    <li><a href="tel:0592998887"><i class="fa-solid fa-phone"></i> 0592998887</a></li>
+                    <li><a href="https://wa.me/972592998887" target="_blank"><i class="fa-brands fa-whatsapp"></i> +972
+                            592998887</a></li>
+                    <li><i class="fa-solid fa-map-pin"></i> كفل حارس والمناطق المجاورة</li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h3>تابعنا</h3>
-                <p>كن على اطلاع دائم بفعالياتنا وأنشطة الأطفال.</p>
+                <p>Roots private school</p>
                 <div class="social-links footer-social">
-                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/search/top?q=Roots%20private%20school" target="_blank"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/explore/tags/rootsprivateschool/" target="_blank"
+                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/972592998887" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>جميع الحقوق محفوظة © 2026 حضانة Roots. تصميم وتطوير متكامل.</p>
+            <p>جميع الحقوق محفوظة © 2026 مدرسة وروضة Roots الخاصة.</p>
         </div>
     </footer>
 
-    <!-- زر واتساب عائم -->
-    <a href="https://wa.me/201000000000" class="whatsapp-float" target="_blank" aria-label="تواصل واتساب">
+    <!-- زر واتساب العائم والمساعد الصوتي -->
+    <a href="https://wa.me/972592998887" class="whatsapp-float" target="_blank" aria-label="تواصل واتساب">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
-
-    <!-- المساعد الصوتي "محمد" متوفر أيضاً في صفحة تفاصيل البرامج -->
-    <div id="chat-widget-container">
-        <button id="chat-toggle-btn" aria-label="تحدث مع محمد">
-            <span>دردش مع محمد</span>
-            <div class="voice-pulse-circle">
-                <i class="fa-solid fa-microphone-lines"></i>
-                <div class="pulse-ring"></div>
-            </div>
-        </button>
-
-        <div id="chat-box" class="chat-hidden">
-            <div class="chat-header">
-                <div class="header-info">
-                    <div class="live-indicator"></div>
-                    <div>
-                        <h4>محمد (المساعد الصوتي)</h4>
-                        <span class="bot-status" id="botStatus">متصل ومستعد للكلام</span>
-                    </div>
-                </div>
-                <button id="close-chat" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div class="voice-avatar-stage">
-                <div class="orb-container" id="orbContainer">
-                    <div class="wave wave-1"></div>
-                    <div class="wave wave-2"></div>
-                    <div class="wave wave-3"></div>
-                    <div class="orb-core" id="orbCore">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-                </div>
-                <div class="voice-caption" id="voiceCaption">اضغط على المايك وكلمني في أي حاجة تحبها!</div>
-            </div>
-
-            <div class="chat-messages" id="chatMessages">
-                <div class="message-row bot-row">
-                    <div class="message bot-message">
-                        أهلاً بيك يا غالي! أنا <strong>محمد</strong>، حابب تسألني عن تفاصيل البرنامج ده ولا ندردش في أي حاجة تانية؟ أنا جاهز!
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-input-area">
-                <input type="text" id="user-input" placeholder="اكتب أو اتكلم بالمايك..." autocomplete="off">
-                <button id="voice-btn" class="main-mic-action" title="تحدث بصوتك">
-                    <i class="fa-solid fa-microphone"></i>
-                </button>
-                <button id="send-btn" title="إرسال">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
