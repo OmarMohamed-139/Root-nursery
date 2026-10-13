@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
-    // 0. إعدادات السحابة والروابط
+    // 0. إعدادات السحابة والروابط (إرسال البيانات لـ Google Sheets)
     // ============================================================
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLNxKxSC35hCR7ofTrxnpIpUO-uqJZKcKzM9lum48-179aeV40_HsjWuPtvxUMz4biAg/exec";
 
@@ -119,21 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const dobInput = document.getElementById('studentDob');
     const dobHint = document.getElementById('dobHint');
 
-    // أ. قيود الأسماء: حروف عربية ومسافات فقط
     function enforceArabicLettersOnly(e) {
         e.target.value = e.target.value.replace(/[^\u0600-\u06FF\s]/g, '');
     }
     if (parentNameInput) parentNameInput.addEventListener('input', enforceArabicLettersOnly);
     if (studentNameInput) studentNameInput.addEventListener('input', enforceArabicLettersOnly);
 
-    // ب. قيود الأرقام: الهوية والهاتف
     function enforceDigitsOnly(e) {
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
     }
     if (parentIdInput) parentIdInput.addEventListener('input', enforceDigitsOnly);
     if (parentPhoneInput) parentPhoneInput.addEventListener('input', enforceDigitsOnly);
 
-    // ج. قيود الواتساب: أرقام وسماح بعلامة + في البداية فقط
     if (parentWaInput) {
         parentWaInput.addEventListener('input', (e) => {
             let val = e.target.value;
@@ -143,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // د. فحص عمر التمهيدي KG2
     function checkKgAge() {
         if (gradeSelect && gradeSelect.value === 'تمهيدي KG2' && dobInput && dobInput.value) {
             const birthDate = new Date(dobInput.value);
@@ -163,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dobInput) dobInput.addEventListener('change', checkKgAge);
 
     // ============================================================
-    // 5. إرسال وتثبيت طلب التسجيل
+    // 5. إرسال وتثبيت طلب التسجيل (Google Sheets Integration)
     // ============================================================
     const registrationForm = document.getElementById('registrationForm');
     const exportDataBtn = document.getElementById('exportDataBtn');
@@ -183,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const transport = document.getElementById('transportLocation') ? document.getElementById('transportLocation').value : '';
             const siblings = document.getElementById('siblingsCount') ? document.getElementById('siblingsCount').value : '';
 
-            // التحقق من الحقول
             if (pName.split(' ').filter(w => w.length > 1).length < 3) {
                 showToast('يرجى كتابة اسم ولي الأمر ثلاثياً على الأقل بالحروف العربية.', true);
                 if (parentNameInput) parentNameInput.focus();
@@ -244,12 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 notes: ''
             };
 
-            // حفظ نسخة احتياطية محلية
             let currentRegistrations = JSON.parse(localStorage.getItem('roots_registrations') || '[]');
             currentRegistrations.push(registrationData);
             localStorage.setItem('roots_registrations', JSON.stringify(currentRegistrations));
 
-            // تجهيز رابط الواتساب
             const waText = encodeURIComponent(
                 `*طلب تسجيل جديد - مدرسة وروضة Roots*\n` +
                 `------------------------------------\n` +
@@ -294,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // تصدير سجلات التسجيل بصيغة CSV/Excel
     if (exportDataBtn) {
         exportDataBtn.addEventListener('click', () => {
             const data = JSON.parse(localStorage.getItem('roots_registrations') || '[]');
@@ -351,220 +343,4 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.style.height = '85px';
         }
     });
-
-    // ============================================================
-    // 7. المساعد الذكي محمد (أفاتار الولد والحصيلة المعرفية)
-    // ============================================================
-    const chatToggleBtn = document.getElementById('chat-toggle-btn');
-    const chatBox = document.getElementById('chat-box');
-    const closeChatBtn = document.getElementById('close-chat');
-    const chatMessages = document.getElementById('chatMessages');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
-    const voiceBtn = document.getElementById('voice-btn');
-    const avatarImg = document.getElementById('chatAvatarImg');
-    const voiceCaption = document.getElementById('voiceCaption');
-    const botStatus = document.getElementById('botStatus');
-
-    let isListening = false;
-    let recognition = null;
-    let arabicVoice = null;
-
-    function loadVoices() {
-        if (!('speechSynthesis' in window)) return;
-        const voices = window.speechSynthesis.getVoices();
-        arabicVoice = voices.find(v => v.lang.startsWith('ar') && (v.name.includes('Male') || v.name.includes('Tarik') || v.name.includes('Maged')))
-            || voices.find(v => v.lang.startsWith('ar'))
-            || voices[0];
-    }
-
-    if ('speechSynthesis' in window) {
-        loadVoices();
-        window.speechSynthesis.onvoiceschanged = loadVoices;
-    }
-
-    if (chatToggleBtn && chatBox) {
-        chatToggleBtn.addEventListener('click', () => {
-            chatBox.classList.toggle('chat-hidden');
-            if (!chatBox.classList.contains('chat-hidden') && userInput) {
-                userInput.focus();
-            }
-        });
-
-        if (closeChatBtn) {
-            closeChatBtn.addEventListener('click', () => {
-                chatBox.classList.add('chat-hidden');
-                stopListening();
-                window.speechSynthesis.cancel();
-            });
-        }
-    }
-
-    function appendMessage(sender, text) {
-        if (!chatMessages) return;
-        const row = document.createElement('div');
-        row.className = `message-row ${sender === 'user' ? 'user-row' : 'bot-row'}`;
-        row.innerHTML = `<div class="message ${sender === 'user' ? 'user-message' : 'bot-message'}">${text}</div>`;
-        chatMessages.appendChild(row);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function speakReply(text) {
-        if (!('speechSynthesis' in window)) return;
-        window.speechSynthesis.cancel();
-
-        const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'ar-SA';
-        utterance.pitch = 1.0;
-        utterance.rate = 1.0;
-
-        if (arabicVoice) utterance.voice = arabicVoice;
-
-        if (avatarImg) avatarImg.classList.add('speaking-avatar');
-        if (voiceCaption) voiceCaption.textContent = "محمد يتحدث معك الآن...";
-        if (botStatus) botStatus.textContent = "يتحدث...";
-
-        utterance.onend = utterance.onerror = () => {
-            if (avatarImg) avatarImg.classList.remove('speaking-avatar');
-            if (voiceCaption) voiceCaption.textContent = "أنا جاهز لأي استفسار!";
-            if (botStatus) botStatus.textContent = "متصل ومستعد للكلام";
-        };
-
-        window.speechSynthesis.speak(utterance);
-    }
-
-    // الحصيلة المعرفية الموسعة لمحمد باللغة العربية
-    function generateMohamedKnowledge(text) {
-        const q = text.toLowerCase().trim();
-
-        if (q.includes('اسم') && (q.includes('روتس') || q.includes('roots') || q.includes('ليش') || q.includes('ليه'))) {
-            return "سُميت مدرستنا Roots لأن المستقبل القوي يبدأ من جذور قوية! وشعارنا الدائم: Strong roots, bright futures.";
-        }
-        if (q.includes('ميس ايه') || q.includes('معلمة انجليزي') || q.includes('ايات') || q.includes('ayat')) {
-            return "ميس آية (Miss Ayat) هي معلمة اللغة الإنجليزية الرائعة في مدرستنا، وتستقبل طلابنا بأساليب تعليمية وتفاعلية محببة جداً!";
-        }
-        if (q.includes('تسجيل') || q.includes('اوراق') || q.includes('وثائق') || q.includes('شروط') || q.includes('مطلوب')) {
-            return "لتسجيل الطالب نحتاج: صورة هوية ولي الأمر، شهادة ميلاد الطالب الأصلية أو المصدقة، صورة شخصية حديثة، تكلفة حجز المقعد، وملف نقل إذا كان الطالب من الصف الثاني فما فوق.";
-        }
-        if (q.includes('تمهيدي') || q.includes('kg2') || q.includes('روضة') || q.includes('عمر') || q.includes('مواليد')) {
-            return "مرحلة التمهيدي KG2 للمواليد بين 1/2/2021 وحتى 30/4/2022، وقسطها 150 شيكل شهرياً، والكتب وبلوزتين بـ 100 شيكل.";
-        }
-        if (q.includes('مدرسة') || q.includes('صفوف') || q.includes('قسط') || q.includes('رسوم') || q.includes('اسعار')) {
-            return "المدرسة من الصف الأول حتى الرابع قسطها 3500 شيكل سنوياً شامل الكتب المدرسية، ومع خصم الدفع المباشر يصبح 3200 شيكل فقط! والزي المدرسي 100 شيكل، وبدلة الرياضة 100 شيكل.";
-        }
-        if (q.includes('خصم') || q.includes('اخوة') || q.includes('اخوات')) {
-            return "خصوماتنا تشمل: خصم الدفع المباشر (3200 بدل 3500 شيكل)، وخصم الإخوة: طالبان خصم 200 شيكل، 3 إخوة خصم 400 شيكل، و4 إخوة خصم نصف قسط كامل!";
-        }
-        if (q.includes('مواصلات') || q.includes('باص') || q.includes('كفل حارس') || q.includes('ديرستيا') || q.includes('قيرة') || q.includes('زيتا') || q.includes('جماعين')) {
-            return "خطوط الباصات مؤمنة ومنتظمة: كفل حارس وديرستيا وحارس 120 شيكل ذهاباً وإياباً (70 شيكل لاتجاه واحد)، قيرة 140 شيكل، وزيتا وجماعين 200 شيكل.";
-        }
-        if (q.includes('مكان') || q.includes('عنوان') || q.includes('موقع') || q.includes('فين') || q.includes('وين')) {
-            return "تقع مدرسة وروضة Roots الخاصة في بلدة كفل حارس، وتخدم أبناءنا في كافة القرى والمناطق المجاورة.";
-        }
-        if (q.includes('تواصل') || q.includes('تليفون') || q.includes('واتس') || q.includes('رقم')) {
-            return "يمكنك الاتصال بنا على 0592998887 أو مراسلتنا عبر الواتساب على +972 592998887، وصفحتنا على الفيسبوك Roots private school.";
-        }
-        if (q.includes('اسمك') || q.includes('مين انت') || q.includes('شخصيتك') || q.includes('محمد')) {
-            return "أنا محمد، المساعد الذكي وسفير طلاب مدرسة وروضة Roots! أسعد بمساعدتك والإجابة على أي استفسار.";
-        }
-        if (q.includes('ازيك') || q.includes('عامل ايه') || q.includes('مرحبا') || q.includes('اهلا') || q.includes('صباح') || q.includes('مساء')) {
-            return "أهلاً وسهلاً بك! يسعدني وجودك معنا في مدرسة Roots، تحب تسأل عن شروط القبول والتسجيل ولا الرسوم وخطوط الباصات؟";
-        }
-        return "أهلاً بك! أنا محمد في مدرسة وروضة Roots، اسألني عن الرسوم، شروط التسجيل، أو خطوط المواصلات وسأجيبك فوراً!";
-    }
-
-    async function handleChatInput(text) {
-        appendMessage('user', text);
-        try {
-            const res = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
-            });
-            const data = await res.json();
-            appendMessage('bot', data.reply);
-            speakReply(data.reply);
-        } catch (error) {
-            const fallback = generateMohamedKnowledge(text);
-            appendMessage('bot', fallback);
-            speakReply(fallback);
-        }
-    }
-
-    if (sendBtn && userInput) {
-        sendBtn.addEventListener('click', () => {
-            const val = userInput.value.trim();
-            if (val) {
-                handleChatInput(val);
-                userInput.value = '';
-            }
-        });
-
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const val = userInput.value.trim();
-                if (val) {
-                    handleChatInput(val);
-                    userInput.value = '';
-                }
-            }
-        });
-    }
-
-    // التعرف الصوتي (Speech Recognition)
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-        recognition = new SpeechRecognition();
-        recognition.lang = 'ar-SA';
-        recognition.continuous = false;
-
-        recognition.onstart = () => {
-            isListening = true;
-            if (voiceBtn) voiceBtn.classList.add('listening');
-            if (avatarImg) avatarImg.classList.add('listening-avatar');
-            if (voiceCaption) voiceCaption.textContent = "محمد يستمع إليك الآن...";
-            if (botStatus) botStatus.textContent = "يستمع...";
-        };
-
-        recognition.onresult = (e) => {
-            const transcript = e.results[0][0].transcript;
-            stopListening();
-            handleChatInput(transcript);
-        };
-
-        recognition.onerror = recognition.onend = () => {
-            stopListening();
-        };
-
-        if (voiceBtn) {
-            voiceBtn.addEventListener('click', () => {
-                if (chatBox.classList.contains('chat-hidden')) {
-                    chatBox.classList.remove('chat-hidden');
-                }
-                if (isListening) {
-                    stopListening();
-                } else {
-                    try {
-                        window.speechSynthesis.cancel();
-                        recognition.start();
-                    } catch (err) {
-                        recognition.stop();
-                    }
-                }
-            });
-        }
-    }
-
-    function stopListening() {
-        isListening = false;
-        if (voiceBtn) voiceBtn.classList.remove('listening');
-        if (avatarImg) {
-            avatarImg.classList.remove('listening-avatar');
-            avatarImg.classList.remove('speaking-avatar');
-        }
-        if (recognition) {
-            try { recognition.stop(); } catch (err) { }
-        }
-    }
 });

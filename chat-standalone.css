@@ -1,0 +1,136 @@
+/* تنسيقات صفحة الشات المستقلة */
+.chat-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-light);
+    padding-top: 85px;
+    /* ارتفاع النافبار */
+}
+
+.chat-standalone-main {
+    flex: 1;
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#chat-box-standalone {
+    width: 100%;
+    max-width: 800px;
+    /* عرض أكبر للشات */
+    height: 750px;
+    /* ارتفاع أكبر */
+    background: #ffffff;
+    color: var(--text-dark);
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chat-header-standalone {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #ffffff;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header-standalone .bot-status {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+}
+
+.chat-header-standalone .header-info h4 {
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.close-chat-standalone {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.close-chat-standalone:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+/* تحديثات الأفاتار داخل صفحة الشات */
+.boy-avatar-stage {
+    background: #f9fbfd;
+    padding: 30px 15px 20px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.boy-character-circle {
+    width: 120px;
+    /* أفاتار أكبر قليلاً */
+    height: 120px;
+    border: 4px solid var(--primary);
+    box-shadow: 0 10px 25px rgba(46, 125, 50, 0.25);
+}
+
+.boy-img-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.voice-caption {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* منطقة الرسائل */
+.chat-messages {
+    padding: 25px 30px;
+    background: #ffffff;
+}
+
+.message {
+    max-width: 70%;
+    /* رسائل أعرض */
+    padding: 14px 20px;
+    border-radius: 18px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.bot-message {
+    background: #f1f5f9;
+    color: var(--text-dark);
+}
+
+.user-message {
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* منطقة الإدخال */
+.chat-input-area {
+    padding: 15px 25px;
+    background: #ffffff;
+    border-top: 1px solid #edf2f7;
+    gap: 15px;
+}

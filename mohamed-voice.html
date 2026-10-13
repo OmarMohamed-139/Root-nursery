@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساعد الذكي محمد - مدرسة وروضة Roots الخاصة</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="Tap img.png">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .voice-page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 110px 20px 40px 20px;
+            background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+        }
+
+        .voice-interface-card {
+            width: 100%;
+            max-width: 520px;
+            background: #0b1120;
+            color: #f8fafc;
+            border-radius: 32px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(46, 125, 50, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .voice-card-top-bar {
+            padding: 20px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .bot-identity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.15rem;
+        }
+
+        .status-dot {
+            width: 11px;
+            height: 11px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 14px #22c55e;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+
+        .home-link-btn {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 14px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .home-link-btn:hover {
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .avatar-hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 20px 10px;
+            background: radial-gradient(circle at center, rgba(46, 125, 50, 0.2) 0%, transparent 80%);
+        }
+
+        /* تكبير حجم عرض صورة الأفاتار بشكل أكبر وأوضح */
+        .avatar-direct-img-box {
+            width: 290px;
+            height: 275px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .avatar-direct-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+        }
+
+        .avatar-direct-img-box.speaking {
+            transform: scale(1.08) translateY(-4px);
+            filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.85));
+        }
+
+        .avatar-direct-img-box.listening {
+            transform: scale(1.08) translateY(-4px);
+            filter: drop-shadow(0 0 35px rgba(249, 115, 22, 0.85));
+        }
+
+        .voice-status-caption {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-scroll-view {
+            height: 240px;
+            padding: 15px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: #0b1120;
+        }
+
+        .chat-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-row.bot {
+            align-items: flex-start;
+        }
+
+        .chat-row.user {
+            align-items: flex-end;
+        }
+
+        .chat-bubble {
+            max-width: 88%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            font-size: 0.96rem;
+            line-height: 1.65;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-bubble.bot {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-bottom-right-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .chat-bubble.user {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: #ffffff;
+            border-bottom-left-radius: 4px;
+        }
+
+        .bottom-input-panel {
+            display: flex;
+            align-items: center;
+            padding: 18px 24px;
+            background: #151c2f;
+            gap: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .bottom-input-panel input {
+            flex: 1;
+            background: #0b1120;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 14px 22px;
+            color: #fff;
+            outline: none;
+            font-size: 0.96rem;
+            transition: var(--transition);
+        }
+
+        .bottom-input-panel input:focus {
+            border-color: #4ade80;
+            box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.15);
+        }
+
+        .control-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            transition: var(--transition);
+        }
+
+        .mic-btn {
+            background: #0b1120;
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.35);
+        }
+
+        .mic-btn:hover {
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .mic-btn.listening {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+            animation: micGlow 1s infinite;
+        }
+
+        @keyframes micGlow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- شريط التنقل العلوي -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo-wrapper">
+                    <img src="roots logo.png" alt="Roots Logo" class="logo-img">
+                </div>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <a href="program-details.html" class="nav-link">تفاصيل البرامج</a>
+                <a href="admission.html" class="nav-link">الرسوم والتسجيل</a>
+                <a href="mohamed-voice.html" class="nav-link active"><i class="fa-solid fa-robot text-green"></i>
+                    المساعد محمد</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="admission.html" class="btn-primary contact-btn">سجل الآن</a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- الواجهة الرئيسية للمساعد -->
+    <section class="voice-page-wrapper">
+        <div class="voice-interface-card">
+            <div class="voice-card-top-bar">
+                <div class="bot-identity">
+                    <div class="status-dot"></div>
+                    <span>محمد - مساعد Roots الذكي</span>
+                </div>
+                <a href="index.html" class="home-link-btn"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            </div>
+
+            <div class="avatar-hero-section">
+                <div class="avatar-direct-img-box" id="avatarBox">
+                    <img src="av.png" alt="محمد سفير Roots">
+                </div>
+                <div class="voice-status-caption" id="voiceCaption">أهلاً بك. أنا محمد، تفضل بسؤالي عن البرامج والرسوم
+                </div>
+            </div>
+
+            <div class="chat-scroll-view" id="chatMessages">
+                <div class="chat-row bot">
+                    <div class="chat-bubble bot">
+                        مرحباً بك في مدرسة وروضة Roots الخاصة! أنا محمد، سفير ومساعد المدرسة. تفضل بسؤالي عن برامج
+                        التعلم الذكي، الرسوم بالريال، شروط التسجيل، أو المواصلات وسأجيبك فوراً.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-input-panel">
+                <input type="text" id="userInput" placeholder="اكتب سؤالك هنا (مثال: ما هي برامج التعلم؟)..."
+                    autocomplete="off">
+                <button id="voiceBtn" class="control-btn mic-btn" title="تحدث بصوتك">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button id="sendBtn" class="control-btn send-btn" title="إرسال">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <div class="logo-wrapper footer-logo">
+                    <img src="roots logo.png" alt="Roots Logo" class="logo-img">
+                </div>
+                <p>مدرسة وروضة Roots الخاصة.. جذور قوية لمستقبل واعد ومشرق.</p>
+            </div>
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="program-details.html">تفاصيل البرامج</a></li>
+                    <li><a href="admission.html">الرسوم والتسجيل</a></li>
+                    <li><a href="mohamed-voice.html">المساعد الذكي محمد</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تواصل معنا</h3>
+                <ul>
+                    <li><a href="tel:0592998887"><i class="fa-solid fa-phone"></i> 0592998887</a></li>
+                    <li><a href="https://wa.me/972592998887" target="_blank"><i class="fa-brands fa-whatsapp"></i> +972
+                            592998887</a></li>
+                    <li><i class="fa-solid fa-map-pin"></i> كفل حارس والمناطق المجاورة</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تابعنا</h3>
+                <p>Roots private school</p>
+                <div class="social-links footer-social">
+                    <a href="https://www.facebook.com/search/top?q=Roots%20private%20school" target="_blank"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/explore/tags/rootsprivateschool/" target="_blank"
+                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/972592998887" target="_blank" aria-label="WhatsApp"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2026 مدرسة وروضة Roots الخاصة.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatMessages = document.getElementById('chatMessages');
+            const userInput = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const voiceBtn = document.getElementById('voiceBtn');
+            const avatarBox = document.getElementById('avatarBox');
+            const voiceCaption = document.getElementById('voiceCaption');
+
+            let isListening = false;
+            let recognition = null;
+            let arabicVoice = null;
+
+            function loadVoices() {
+                if (!('speechSynthesis' in window)) return;
+                const voices = window.speechSynthesis.getVoices();
+                arabicVoice = voices.find(v => v.lang.startsWith('ar') && (v.name.includes('Google') || v.name.includes('Maged') || v.name.includes('Tarik') || v.name.includes('Male')))
+                    || voices.find(v => v.lang.startsWith('ar'))
+                    || voices[0];
+            }
+
+            if ('speechSynthesis' in window) {
+                loadVoices();
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+            }
+
+            function appendMsg(sender, text) {
+                if (!chatMessages) return;
+                const row = document.createElement('div');
+                row.className = `chat-row ${sender}`;
+                row.innerHTML = `<div class="chat-bubble ${sender}">${text}</div>`;
+                chatMessages.appendChild(row);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function speakText(text) {
+                if (!('speechSynthesis' in window)) return;
+                window.speechSynthesis.cancel();
+
+                const cleanText = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 1.0;
+                utterance.pitch = 1.15;
+
+                if (arabicVoice) utterance.voice = arabicVoice;
+
+                if (avatarBox) avatarBox.classList.add('speaking');
+                if (voiceCaption) voiceCaption.textContent = "محمد يتحدث الآن...";
+
+                utterance.onend = utterance.onerror = () => {
+                    if (avatarBox) avatarBox.classList.remove('speaking');
+                    if (voiceCaption) voiceCaption.textContent = "أنا جاهز لأي استفسار آخر!";
+                };
+
+                window.speechSynthesis.speak(utterance);
+            }
+
+            // قاعدة البيانات الشاملة والموسعة (مع معلومات برامج التعلم والعملة بالريال وبدون أي رموز اقتباس)
+            const schoolKnowledge = [
+                {
+                    keywords: ["برامج", "تعليم", "تأسيس", "ذكاء اصطناعي", "برمجة", "منهج", "تدريس"],
+                    answer: "برامج التعلم في Roots تشمل: 1. مرحلة التمهيدي KG2 للتفاعل وتنمية المهارات الحركية. 2. التأسيس اللغوي المكثف في العربي والإنجليزي. 3. الرياضيات والعلوم التطبيقية والتجارب المبسطة. 4. مقدمة في التفكير البرمجي والذكاء الاصطناعي لطلاب الصف الثالث والرابع."
+                },
+                {
+                    keywords: ["اسم", "روتس", "roots", "لماذا", "سبب", "معنى"],
+                    answer: "سُميت مدرستنا Roots؛ لأن المستقبل القوي يبدأ من جذور قوية، وشعارنا الدائم هو: جذور قوية لمستقبل مشرق."
+                },
+                {
+                    keywords: ["تمهيدي", "kg2", "روضة", "عمر", "مواليد"],
+                    answer: "مرحلة التمهيدي للروضة مخصصة للمواليد ما بين الأول من شهر فبراير عام 2021، وحتى الثلاثين من شهر أبريل عام 2022. وقسطها الشهري 150 ريال، وتكلفة الكتب والبلوزتين 100 ريال."
+                },
+                {
+                    keywords: ["رسوم", "اقساط", "قسط", "سعر", "تكلفة", "مدرسة"],
+                    answer: "رسوم الدراسة للصفوف من الأول وحتى الرابع الأساسي هي 3500 ريال سنوياً شاملة الكتب المدرسية. وتكلفة الزي المدرسي 100 ريال، وبدلة الرياضة 100 ريال."
+                },
+                {
+                    keywords: ["خصم", "اخوة", "إخوة", "تخفيض", "دفع مباشر"],
+                    answer: "نقدم خصومات ممتازة تشمل: خصم الدفع المباشر ليصبح القسط 3200 ريال بدلاً من 3500. كما توجد خصومات للإخوة: طالبان بخصم 200 ريال، وثلاثة إخوة بخصم 400 ريال، وأربعة إخوة بنصف قسط كامل."
+                },
+                {
+                    keywords: ["مواصلات", "باص", "خطوط", "توصيل", "قيرة", "جماعين", "ديرستيا"],
+                    answer: "توفر المدرسة خطوط باصات مؤمنة ومنتظمة ذهاباً وإياباً للمناطق الآتية: كفل حارس، وديرستيا، وحارس بـ 120 ريال، وقيرة بـ 140 ريال، وزيتا وجماعين بـ 200 ريال."
+                },
+                {
+                    keywords: ["اوراق", "وثائق", "مطلوب", "شروط", "تسجيل", "تثبيت", "ملف نقل"],
+                    answer: "الوثائق المطلوبة لتثبيت التسجيل هي: صورة هوية ولي الأمر، شهادة ميلاد الطالب الأصلية أو المصدقة، صورة شخصية حديثة، ملف نقل رسمي للطلاب من الصف الثاني فما فوق، ودفع رسوم حجز المقعد."
+                },
+                {
+                    keywords: ["مكان", "عنوان", "اين", "موقع"],
+                    answer: "تقع مدرسة وروضة Roots الخاصة في بلدة كفل حارس، وترحب بأبنائنا الطلاب من كفل حارس وكافة القرى والمناطق المجاورة."
+                },
+                {
+                    keywords: ["تواصل", "رقم", "هاتف", "اتصال", "واتس", "فيسبوك"],
+                    answer: "يمكنكم التواصل معنا مباشرة عبر الهاتف على الرقم 0592998887، أو عبر تطبيق الواتساب +972 592998887، أو من خلال صفحتنا الرسمية على الفيسبوك."
+                },
+                {
+                    keywords: ["من انت", "اسمك", "تعريف", "محمد"],
+                    answer: "أنا محمد، سفير ومساعد طلاب مدرسة وروضة Roots الخاصة. يسعدني جداً الإجابة عن أي استفسار يخص البرامج والرسوم."
+                },
+                {
+                    keywords: ["السلام", "مرحبا", "أهلاً", "صباح", "مساء"],
+                    answer: "وعليكم السلام ورحمة الله وبركاته. أهلاً بك في مدرسة Roots. هل ترغب في الاستفسار عن برامج التعلم، الرسوم بالريال، أم شروط التسجيل؟"
+                }
+            ];
+
+            function getMohamedAnswer(qText) {
+                const q = qText.toLowerCase().trim();
+                for (let item of schoolKnowledge) {
+                    for (let keyword of item.keywords) {
+                        if (q.includes(keyword)) {
+                            return item.answer;
+                        }
+                    }
+                }
+                return "سؤال مهم! في مدرسة وروضة Roots الخاصة نحرص على تقديم أفضل برامج الرعاية التعليمية والذكاء الاصطناعي لطفلك. يسعدنا تواصلكم معنا عبر الهاتف 0592998887 أو الواتساب لأي استفسار تفصيلي!";
+            }
+
+            function handleQuery(text) {
+                appendMsg('user', text);
+                const reply = getMohamedAnswer(text);
+                setTimeout(() => {
+                    appendMsg('bot', reply);
+                    speakText(reply);
+                }, 400);
+            }
+
+            if (sendBtn && userInput) {
+                sendBtn.addEventListener('click', () => {
+                    const val = userInput.value.trim();
+                    if (val) {
+                        handleQuery(val);
+                        userInput.value = '';
+                    }
+                });
+                userInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const val = userInput.value.trim();
+                        if (val) {
+                            handleQuery(val);
+                            userInput.value = '';
+                        }
+                    }
+                });
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.lang = 'ar-SA';
+                recognition.continuous = false;
+
+                recognition.onstart = () => {
+                    isListening = true;
+                    if (voiceBtn) voiceBtn.classList.add('listening');
+                    if (avatarBox) avatarBox.classList.add('listening');
+                    if (voiceCaption) voiceCaption.textContent = "محمد يستمع إليك...";
+                };
+
+                recognition.onresult = (e) => {
+                    const transcript = e.results[0][0].transcript;
+                    stopListen();
+                    handleQuery(transcript);
+                };
+
+                recognition.onerror = recognition.onend = () => {
+                    stopListen();
+                };
+
+                if (voiceBtn) {
+                    voiceBtn.addEventListener('click', () => {
+                        if (isListening) {
+                            stopListen();
+                        } else {
+                            try {
+                                window.speechSynthesis.cancel();
+                                recognition.start();
+                            } catch (err) {
+                                recognition.stop();
+                            }
+                        }
+                    });
+                }
+            }
+
+            function stopListen() {
+                isListening = false;
+                if (voiceBtn) voiceBtn.classList.remove('listening');
+                if (avatarBox) {
+                    avatarBox.classList.remove('listening');
+                    avatarBox.classList.remove('speaking');
+                }
+                if (recognition) {
+                    try { recognition.stop(); } catch (e) { }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
